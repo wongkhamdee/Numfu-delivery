@@ -1,0 +1,14 @@
+- Register น่าจะเหมือนกัน
+- Login น่าจะเหมือนกัน
+- Edit Profile น่าจะเหมือนกัน
+- Receive Order รอเเก้ไข
+- Cancel Order เสร็จ
+- Add Location น่าจะเหมือนกัน
+- Chat น่าจะเหมือนกัน
+- Add promotion ของร้านค้า เสร็จ
+- Update Stock เสร็จ
+- Change Food Menu เสร็จ
+- Edit Order เสร็จ
+- Contact admin น่าจะเหมือนกัน
+- FAQ น่าจะเหมือนกัน
+

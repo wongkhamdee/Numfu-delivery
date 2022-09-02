@@ -1,0 +1,23 @@
+- Register  เสร็จ
+- Login เสร็จ
+- Edit Profile เสร็จ
+- Forget Password เสร็จ
+- Add Item เสร็จ
+- Remove Item เสร็จ
+- Review Order เสร็จ
+- Edit Order เสร็จ
+- Cancel Order เว้นไว้ก่อน
+- Confirm order เสร็จ
+-------------------------------------------------------------------------------
+- Pay for Order
+- Add Location
+- Chat
+- Check for promotion
+- Menu search
+- View order History
+- View Recommended food
+- Top up wallet
+- Check wallet
+- Contact admin
+- FAQ
+

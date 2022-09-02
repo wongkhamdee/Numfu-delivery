@@ -1,0 +1,7 @@
+- Register 
+- Login
+- Check for promotion
+- Add promotion ของแอดมิน
+- Manage User
+- Manage Commission
+
