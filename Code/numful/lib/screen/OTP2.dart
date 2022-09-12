@@ -57,7 +57,7 @@ class _OTP2State extends State<OTP2> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: Text("Verification Code"),
+                          title: Text("Verification Codessdsdd"),
                           content: Text('Code entered is $verificationCode'),
                         );
                       });

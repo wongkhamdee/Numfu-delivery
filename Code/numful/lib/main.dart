@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:numful/screen/login.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+//ต้องลง pinput เพิ่ม
+
 void main() {
   runApp(MyApp());
 }
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           textTheme: GoogleFonts.kanitTextTheme(Theme.of(context).textTheme),
           primarySwatch: Colors.orange,
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),
+          backgroundColor: Colors.white,
         ),
         home: Login());
   }

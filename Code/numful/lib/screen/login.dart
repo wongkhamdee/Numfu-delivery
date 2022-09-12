@@ -63,6 +63,8 @@ class Login extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Radio(value: 1, groupValue: null, onChanged: null),
+                  Text('จดจำอีเมลเอาไว้'),
                   const SizedBox(
                     height: 50,
                   ),
