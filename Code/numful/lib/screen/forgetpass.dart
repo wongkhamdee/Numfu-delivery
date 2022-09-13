@@ -1,15 +1,13 @@
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-import 'package:numful/screen/forgetpass.dart';
 
-class OTP2 extends StatefulWidget {
+class forgetpass extends StatefulWidget {
   @override
-  State<OTP2> createState() => _OTP2State();
+  State<forgetpass> createState() => _forgetpassState();
 }
 
-class _OTP2State extends State<OTP2> {
+class _forgetpassState extends State<forgetpass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,37 +30,29 @@ class _OTP2State extends State<OTP2> {
           //ป้องกันตอนย้อนกลับมาปุ่ม overflow
           child: Column(
             children: [
-              Text("ยืนยันหมายเลขโทรศัพท์มือถือของคุณ",
-                  style: TextStyle(fontSize: 20)),
-              Text(
-                "ใส่รหัส 4 หลักที่ส่งไปยังเบอร์มือถือของท่าน",
-              ),
-              Text(
-                "+66xxxxxxxx",
-              ),
+              Text("ลืมรหัสผ่าน", style: TextStyle(fontSize: 40)),
+              Text("กรุณาใส่อีเมลของคุณ แล้วเราจะส่งลิงค์เพื่อคืนบัญชีของคุณ",
+                  style: TextStyle(fontSize: 15)),
               SizedBox(
-                height: 120,
+                height: 80,
               ),
-              OtpTextField(
-                numberOfFields: 5,
-                borderColor: Color.fromARGB(255, 255, 159, 81),
-                //set to true to show as box or false to show as dash
-                showFieldAsBox: true,
-                //runs when a code is typed in
-                onCodeChanged: (String code) {
-                  //handle validation or checks here
-                },
-                //runs when every textfield is filled
-                onSubmit: (String verificationCode) {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text("Verification Codessdsdd"),
-                          content: Text('Code entered is $verificationCode'),
-                        );
-                      });
-                }, // end onSubmit
+              TextField(
+                cursorHeight: 20,
+                decoration: InputDecoration(
+                  labelText: 'อีเมล',
+                  hintText: "กรอกเบอร์อีเมลของคุณ",
+                  suffixIcon: Icon(Icons.email),
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(color: Colors.grey, width: 2),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(color: Colors.grey, width: 1.5),
+                  ),
+                ),
               ),
               SizedBox(
                 height: 50,
@@ -73,7 +63,7 @@ class _OTP2State extends State<OTP2> {
 
                     primary: Color.fromARGB(255, 255, 158, 87),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 139, vertical: 8),
+                        horizontal: 160, vertical: 8),
                     textStyle: const TextStyle(fontSize: 20),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50))),
