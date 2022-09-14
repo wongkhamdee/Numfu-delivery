@@ -26,7 +26,7 @@ class _OTPState extends State<OTP> {
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
+        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         child: SingleChildScrollView(
           //ป้องกันตอนย้อนกลับมาปุ่ม overflow
           child: Column(
@@ -62,8 +62,6 @@ class _OTPState extends State<OTP> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    // background color
-
                     primary: Color.fromARGB(255, 255, 158, 87),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 139, vertical: 8),

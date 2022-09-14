@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Numful',
         theme: ThemeData(
-          textTheme: GoogleFonts.kanitTextTheme(Theme.of(context).textTheme),
+          textTheme: GoogleFonts.promptTextTheme(Theme.of(context).textTheme),
           primarySwatch: Colors.orange,
           backgroundColor: Colors.white,
         ),

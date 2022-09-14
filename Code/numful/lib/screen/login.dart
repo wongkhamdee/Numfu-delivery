@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:numful/screen/index.dart';
 import 'package:numful/screen/register.dart';
 
 class Login extends StatelessWidget {
@@ -16,7 +17,7 @@ class Login extends StatelessWidget {
                   ),
                   Text("Numful", style: TextStyle(fontSize: 30)),
                   SizedBox(
-                    height: 120,
+                    height: 80,
                   ),
                   Text("ยินดีต้อนรับ", style: TextStyle(fontSize: 20)),
                   Text("ลงชื่อเข้าใช้บัญชีของคุณ",
@@ -63,15 +64,23 @@ class Login extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Radio(value: 1, groupValue: null, onChanged: null),
-                  Text('จดจำอีเมลเอาไว้'),
+                  Container(
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Radio(
+                        value: 1,
+                        groupValue: null,
+                        onChanged: null,
+                      ),
+                      Text('ลืมรหัสผ่าน'),
+                    ],
+                  )),
                   const SizedBox(
                     height: 50,
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        // background color
-
                         primary: Color.fromARGB(255, 255, 158, 87),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 139, vertical: 8),
@@ -83,7 +92,7 @@ class Login extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return Register();
+                        return index();
                       }));
                     },
                   ),

@@ -26,7 +26,7 @@ class _RegisterState extends State<Register> {
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
+        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         child: SingleChildScrollView(
           //ป้องกันตอนย้อนกลับมาปุ่ม overflow
           child: Column(
@@ -37,7 +37,7 @@ class _RegisterState extends State<Register> {
               ),
               Text("Numful", style: TextStyle(fontSize: 30)),
               SizedBox(
-                height: 120,
+                height: 80,
               ),
               TextField(
                 cursorHeight: 20,
@@ -129,7 +129,7 @@ class _RegisterState extends State<Register> {
 
                     primary: Color.fromARGB(255, 255, 158, 87),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 139, vertical: 8),
+                        horizontal: 155, vertical: 8),
                     textStyle: const TextStyle(fontSize: 20),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50))),
