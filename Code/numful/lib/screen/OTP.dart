@@ -64,7 +64,7 @@ class _OTPState extends State<OTP> {
                 style: ElevatedButton.styleFrom(
                     primary: Color.fromARGB(255, 255, 158, 87),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 139, vertical: 8),
+                        horizontal: 160, vertical: 8),
                     textStyle: const TextStyle(fontSize: 20),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50))),

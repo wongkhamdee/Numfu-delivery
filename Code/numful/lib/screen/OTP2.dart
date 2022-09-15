@@ -2,8 +2,9 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:numful/screen/Launcher.dart';
 import 'package:numful/screen/forgetpass.dart';
-import 'package:numful/screen/index.dart';
+import 'package:numful/screen/login.dart';
 
 class OTP2 extends StatefulWidget {
   @override
@@ -83,7 +84,7 @@ class _OTP2State extends State<OTP2> {
                       style: ElevatedButton.styleFrom(
                           primary: Color.fromARGB(255, 255, 158, 87),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 139, vertical: 8),
+                              horizontal: 160, vertical: 8),
                           textStyle: const TextStyle(fontSize: 20),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50))),
@@ -92,7 +93,7 @@ class _OTP2State extends State<OTP2> {
                       onPressed: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return index();
+                          return Launcher();
                         }));
                       },
                     ),

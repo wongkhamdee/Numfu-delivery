@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:numful/screen/Launcher.dart';
 import 'package:numful/screen/index.dart';
 import 'package:numful/screen/register.dart';
 
@@ -92,7 +93,7 @@ class Login extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return index();
+                        return Launcher();
                       }));
                     },
                   ),
@@ -102,8 +103,6 @@ class Login extends StatelessWidget {
                   Text("หรือ", style: TextStyle(fontSize: 15)),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        // background color
-
                         primary: Color.fromARGB(255, 255, 158, 87),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 130, vertical: 8),

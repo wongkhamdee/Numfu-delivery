@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 
-class index extends StatefulWidget {
+class Profile extends StatefulWidget {
   static const routeName = '/';
 
-  const index({Key? key}) : super(key: key);
+  const Profile({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _indexState();
+    return _ProfileState();
   }
 }
 
-class _indexState extends State<index> {
+class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: Text('Profile'),
       ),
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text('Home Screen'),
+          Text('Profile Screen'),
         ],
       )),
     );
