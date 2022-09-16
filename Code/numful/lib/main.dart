@@ -13,9 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Numful',
+        title: 'Numfu',
         theme: ThemeData(
-          textTheme: GoogleFonts.promptTextTheme(Theme.of(context).textTheme),
+          fontFamily: 'MN',
+          //textTheme: GoogleFonts.promptTextTheme(Theme.of(context).textTheme),
           primarySwatch: Colors.orange,
           backgroundColor: Colors.white,
         ),

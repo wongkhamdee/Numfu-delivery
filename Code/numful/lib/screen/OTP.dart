@@ -1,7 +1,6 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:numful/screen/OTP2.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class OTP extends StatefulWidget {
   @override
@@ -31,13 +30,36 @@ class _OTPState extends State<OTP> {
           //ป้องกันตอนย้อนกลับมาปุ่ม overflow
           child: Column(
             children: [
-              Image.asset(
-                "img/logo.png",
-                height: 100,
+              Container(
+                child: Row(
+                  children: <Widget>[
+                    Text("ยืนยันหมายเลขโทรศัพท์มือถือของคุณ",
+                        style: TextStyle(fontSize: 25)),
+                  ],
+                ),
               ),
-              Text("Numful", style: TextStyle(fontSize: 30)),
+              Container(
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      "กรอกเบอร์โทรศัพท์มือถือของคุณ",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      "+66xxxxxxxx",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(
-                height: 120,
+                height: 50,
               ),
               TextField(
                 cursorHeight: 20,
@@ -64,12 +86,13 @@ class _OTPState extends State<OTP> {
                 style: ElevatedButton.styleFrom(
                     primary: Color.fromARGB(255, 255, 158, 87),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 160, vertical: 8),
+                        horizontal: 168, vertical: 8),
                     textStyle: const TextStyle(fontSize: 20),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50))),
                 child: const Text('ต่อไป',
-                    style: TextStyle(fontSize: 20, color: Colors.white)),
+                    style: TextStyle(
+                        fontFamily: 'MN', fontSize: 20, color: Colors.white)),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return OTP2();

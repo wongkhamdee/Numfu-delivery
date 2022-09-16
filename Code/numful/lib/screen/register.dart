@@ -1,7 +1,7 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:numful/screen/OTP.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:numful/screen/login.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -31,13 +31,24 @@ class _RegisterState extends State<Register> {
           //ป้องกันตอนย้อนกลับมาปุ่ม overflow
           child: Column(
             children: [
-              Image.asset(
+              /* Image.asset(
                 "img/logo.png",
                 height: 100,
-              ),
-              Text("Numful", style: TextStyle(fontSize: 30)),
+              ),*/
+
+              Container(
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    "สมัครสมาชิก",
+                    style:
+                        GoogleFonts.prompt(textStyle: TextStyle(fontSize: 36)),
+                  ),
+                ],
+              )),
               SizedBox(
-                height: 80,
+                height: 40,
               ),
               TextField(
                 cursorHeight: 20,
@@ -120,21 +131,49 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
               ),
+              Container(
+                  child: Row(
+                children: <Widget>[
+                  Text(
+                    "  มีบัญชีอยู่แล้ว?",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: const TextStyle(fontFamily: 'MN'),
+                    ),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return Login();
+                      }));
+                    },
+                    child: const Text(
+                      'เข้าสู่ระบบ',
+                      style: TextStyle(
+                        color: Color(0xFFFF9E57),
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ],
+              )),
               SizedBox(
                 height: 50,
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    // background color
-
                     primary: Color.fromARGB(255, 255, 158, 87),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 160, vertical: 8),
+                        horizontal: 168, vertical: 8),
                     textStyle: const TextStyle(fontSize: 20),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50))),
                 child: const Text('ต่อไป',
-                    style: TextStyle(fontSize: 20, color: Colors.white)),
+                    style: TextStyle(
+                        fontFamily: 'MN', fontSize: 20, color: Colors.white)),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return OTP();

@@ -1,6 +1,6 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:numful/screen/index.dart';
+import 'package:numful/screen/login.dart';
 
 class forgetpass extends StatefulWidget {
   @override
@@ -25,7 +25,7 @@ class _forgetpassState extends State<forgetpass> {
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
+        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         child: SingleChildScrollView(
           //ป้องกันตอนย้อนกลับมาปุ่ม overflow
           child: Column(
@@ -63,15 +63,16 @@ class _forgetpassState extends State<forgetpass> {
 
                     primary: Color.fromARGB(255, 255, 158, 87),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 160, vertical: 8),
+                        horizontal: 168, vertical: 8),
                     textStyle: const TextStyle(fontSize: 20),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50))),
                 child: const Text('ต่อไป',
-                    style: TextStyle(fontSize: 20, color: Colors.white)),
+                    style: TextStyle(
+                        fontFamily: 'MN', fontSize: 20, color: Colors.white)),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return forgetpass();
+                    return Login();
                   }));
                 },
               ),

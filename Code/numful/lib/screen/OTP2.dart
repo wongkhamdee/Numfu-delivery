@@ -1,10 +1,6 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:numful/screen/Launcher.dart';
-import 'package:numful/screen/forgetpass.dart';
-import 'package:numful/screen/login.dart';
 
 class OTP2 extends StatefulWidget {
   @override
@@ -29,33 +25,14 @@ class _OTP2State extends State<OTP2> {
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: SingleChildScrollView(
-          //ป้องกันตอนย้อนกลับมาปุ่ม overflow
-          child: Wrap(
+          child: Column(
             children: [
-              Text("ยืนยันหมายเลขโทรศัพท์มือถือของคุณ",
-                  style: TextStyle(fontSize: 20)),
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      "ใส่รหัส 4 หลักที่ส่งไปยังเบอร์มือถือของท่าน",
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      "+66xxxxxxxx",
-                    ),
-                  ],
-                ),
-              ),
+              Text("กรอกรหัส OTP ของคุณลงที่นี่",
+                  style: TextStyle(fontSize: 25)),
               SizedBox(
-                height: 120,
+                height: 30,
               ),
               OtpTextField(
                 numberOfFields: 5,
@@ -74,7 +51,7 @@ class _OTP2State extends State<OTP2> {
                 },
               ),
               SizedBox(
-                height: 100,
+                height: 60,
               ),
               Container(
                 child: Row(
@@ -84,12 +61,15 @@ class _OTP2State extends State<OTP2> {
                       style: ElevatedButton.styleFrom(
                           primary: Color.fromARGB(255, 255, 158, 87),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 160, vertical: 8),
+                              horizontal: 168, vertical: 8),
                           textStyle: const TextStyle(fontSize: 20),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50))),
                       child: const Text('ต่อไป',
-                          style: TextStyle(fontSize: 20, color: Colors.white)),
+                          style: TextStyle(
+                              fontFamily: 'MN',
+                              fontSize: 20,
+                              color: Colors.white)),
                       onPressed: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {

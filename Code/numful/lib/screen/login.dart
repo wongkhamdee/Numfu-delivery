@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:numful/screen/Launcher.dart';
+import 'package:numful/screen/forgetpass.dart';
 import 'package:numful/screen/index.dart';
 import 'package:numful/screen/register.dart';
 
@@ -16,13 +18,17 @@ class Login extends StatelessWidget {
                     "img/logo.png",
                     height: 100,
                   ),
-                  Text("Numful", style: TextStyle(fontSize: 30)),
+                  Text(
+                    "Numfu",
+                    style:
+                        GoogleFonts.prompt(textStyle: TextStyle(fontSize: 36)),
+                  ),
                   SizedBox(
                     height: 80,
                   ),
-                  Text("ยินดีต้อนรับ", style: TextStyle(fontSize: 20)),
+                  Text("ยินดีต้อนรับ", style: TextStyle(fontSize: 25)),
                   Text("ลงชื่อเข้าใช้บัญชีของคุณ",
-                      style: TextStyle(fontSize: 20)),
+                      style: TextStyle(fontSize: 25)),
                   SizedBox(
                     height: 40,
                   ),
@@ -74,7 +80,21 @@ class Login extends StatelessWidget {
                         groupValue: null,
                         onChanged: null,
                       ),
-                      Text('ลืมรหัสผ่าน'),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          textStyle: const TextStyle(fontFamily: 'MN'),
+                        ),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return forgetpass();
+                          }));
+                        },
+                        child: const Text(
+                          'ลืมรหัสผ่าน?',
+                          style: TextStyle(color: Color(0xFF757575)),
+                        ),
+                      ),
                     ],
                   )),
                   const SizedBox(
@@ -89,7 +109,10 @@ class Login extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50))),
                     child: const Text('เข้าสู่ระบบ',
-                        style: TextStyle(fontSize: 20, color: Colors.white)),
+                        style: TextStyle(
+                            fontFamily: 'MN',
+                            fontSize: 20,
+                            color: Colors.white)),
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
@@ -110,7 +133,10 @@ class Login extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50))),
                     child: const Text('สมัครสมาชิก',
-                        style: TextStyle(fontSize: 20, color: Colors.white)),
+                        style: TextStyle(
+                            fontFamily: 'MN',
+                            fontSize: 20,
+                            color: Colors.white)),
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
