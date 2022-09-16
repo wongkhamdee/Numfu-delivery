@@ -1,10 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:numful/screen/login.dart';
+import 'package:numful/screen/authen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:numful/screen/login.dart';
+import 'package:numful/utility/my_constant.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 //ต้องลง pinput เพิ่ม
 
-void main() {
+final Map<String, WidgetBuilder> map = {
+  '/login': (BuildContext Context) => Login(),
+};
+
+String? initlalRoute;
+
+void main() async {
+  await Hive.initFlutter();
+  initlalRoute = MyCostant.routelogin;
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: MyCostant.appName,
+      routes: map,
+      initialRoute: initlalRoute,
+      theme: ThemeData(
+        fontFamily: 'MN',
+        //textTheme: GoogleFonts.promptTextTheme(Theme.of(context).textTheme),
+        primarySwatch: Colors.orange,
+        backgroundColor: Colors.white,
+      ),
+    );
+  }
+}
+
+/*void main() {
   runApp(MyApp());
 }
 
@@ -22,4 +57,4 @@ class MyApp extends StatelessWidget {
         ),
         home: Login());
   }
-}
+}*/

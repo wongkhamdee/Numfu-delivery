@@ -176,7 +176,7 @@ class _RegisterState extends State<Register> {
                         fontFamily: 'MN', fontSize: 20, color: Colors.white)),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return OTP();
+                    return Otp();
                   }));
                 },
               ),

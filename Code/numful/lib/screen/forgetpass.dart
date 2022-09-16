@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:numful/screen/index.dart';
 import 'package:numful/screen/login.dart';
 
-class forgetpass extends StatefulWidget {
+class Forgetpass extends StatefulWidget {
   @override
-  State<forgetpass> createState() => _forgetpassState();
+  State<Forgetpass> createState() => _ForgetpassState();
 }
 
-class _forgetpassState extends State<forgetpass> {
+class _ForgetpassState extends State<Forgetpass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

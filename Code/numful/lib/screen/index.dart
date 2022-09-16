@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:numful/screen/forgetpass.dart';
+import 'package:numful/utility/my_constant.dart';
 
-class index extends StatefulWidget {
+class Index extends StatefulWidget {
   static const routeName = '/';
 
-  const index({Key? key}) : super(key: key);
+  const Index({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _indexState();
+    return _IndexState();
   }
 }
 
-class _indexState extends State<index> {
+class _IndexState extends State<Index> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +51,10 @@ class _indexState extends State<index> {
                   Container(
                     child: Row(
                       children: <Widget>[
-                        Icon(Icons.location_history),
+                        Icon(
+                          Icons.location_history,
+                          color: MyCostant.light,
+                        ),
                         TextButton(
                           style: TextButton.styleFrom(
                             textStyle: const TextStyle(fontFamily: 'MN'),
@@ -58,7 +62,7 @@ class _indexState extends State<index> {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return forgetpass();
+                              return Forgetpass();
                             }));
                           },
                           child: const Text(

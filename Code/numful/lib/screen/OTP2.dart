@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:numful/screen/Launcher.dart';
 
-class OTP2 extends StatefulWidget {
+class Otp2 extends StatefulWidget {
   @override
-  State<OTP2> createState() => _OTP2State();
+  State<Otp2> createState() => _Otp2State();
 }
 
-class _OTP2State extends State<OTP2> {
+class _Otp2State extends State<Otp2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

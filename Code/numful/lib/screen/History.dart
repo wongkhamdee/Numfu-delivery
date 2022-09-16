@@ -16,13 +16,13 @@ class _HistoryState extends State<History> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('History'),
+        title: Text('Profile'),
       ),
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text('History Screen'),
+          Text('Profile Screen'),
         ],
       )),
     );

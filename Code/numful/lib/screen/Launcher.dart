@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:numful/screen/History.dart';
-import 'package:numful/screen/Profile.dart';
-import 'index.dart';
-import 'Wallet.dart';
-import 'History.dart';
-import 'Profile.dart';
+import 'package:numful/screen/wallet.dart';
+import 'package:numful/screen/history.dart';
+import 'package:numful/screen/index.dart';
+import 'package:numful/screen/profile.dart';
 
 class Launcher extends StatefulWidget {
   static const routeName = '/';
@@ -20,10 +18,10 @@ class Launcher extends StatefulWidget {
 class _LauncherState extends State<Launcher> {
   int _selectedIndex = 0;
   final List<Widget> _pageWidget = <Widget>[
-    const index(),
+    const Index(),
     const Wallet(),
     const History(),
-    const Profile()
+    const Profile(),
   ];
   final List<BottomNavigationBarItem> _menuBar = <BottomNavigationBarItem>[
     BottomNavigationBarItem(

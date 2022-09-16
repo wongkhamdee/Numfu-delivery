@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:numful/screen/OTP2.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class OTP extends StatefulWidget {
+class Otp extends StatefulWidget {
   @override
-  State<OTP> createState() => _OTPState();
+  State<Otp> createState() => _OtpState();
 }
 
-class _OTPState extends State<OTP> {
+class _OtpState extends State<Otp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,7 +95,7 @@ class _OTPState extends State<OTP> {
                         fontFamily: 'MN', fontSize: 20, color: Colors.white)),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return OTP2();
+                    return Otp2();
                   }));
                 },
               ),
