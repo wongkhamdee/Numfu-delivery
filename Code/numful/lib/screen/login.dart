@@ -7,6 +7,7 @@ import 'package:numful/widgets/show_image.dart';
 import 'package:numful/widgets/show_title.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final formKey = GlobalKey<FormState>();
   bool isChecked = false;
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -33,18 +35,21 @@ class _LoginState extends State<Login> {
           child: GestureDetector(
             onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
             behavior: HitTestBehavior.opaque,
-            child: ListView(
-              children: [
-                buildImage(size),
-                buildAppName(),
-                buildText(),
-                buildEmail(size),
-                buildPassword(size),
-                buildRemember(),
-                buildLogin(size),
-                buildOR(),
-                buildRegister(size),
-              ],
+            child: Form(
+              key: formKey,
+              child: ListView(
+                children: [
+                  buildImage(size),
+                  buildAppName(),
+                  buildText(),
+                  buildEmail(size),
+                  buildPassword(size),
+                  buildRemember(),
+                  buildLogin(size),
+                  buildOR(),
+                  buildRegister(size),
+                ],
+              ),
             ),
           ),
         ));
@@ -110,9 +115,12 @@ class _LoginState extends State<Login> {
           child: ElevatedButton(
             style: MyCostant().myButtonStyle(),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Launcher();
-              }));
+              if (formKey.currentState!.validate() == false) {
+              } else {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return Launcher();
+                }));
+              }
             },
             child: ShowTitle(
               title: 'เข้าสู่ระบบ',
@@ -156,6 +164,11 @@ class _LoginState extends State<Login> {
           margin: EdgeInsets.only(top: 40),
           width: size * 0.9,
           child: TextFormField(
+            keyboardType: TextInputType.emailAddress,
+            validator: MultiValidator([
+              RequiredValidator(errorText: 'กรุณากรอกอีเมลของคุณ'),
+              EmailValidator(errorText: 'รูปแบบอีเมลของคุณไม่ถูกต้อง'),
+            ]),
             controller: email,
             decoration: InputDecoration(
               labelStyle: MyCostant().h4Style(),
@@ -185,6 +198,11 @@ class _LoginState extends State<Login> {
           margin: EdgeInsets.only(top: 20),
           width: size * 0.9,
           child: TextFormField(
+            validator: MultiValidator([
+              RequiredValidator(errorText: 'กรุณากรอกรหัสผ่านของคุณ'),
+              MinLengthValidator(8,
+                  errorText: 'รหัสผ่านอย่างน้อยต้องมี 8 ตัวอักษร'),
+            ]),
             controller: password,
             obscureText: statusRedEye,
             decoration: InputDecoration(

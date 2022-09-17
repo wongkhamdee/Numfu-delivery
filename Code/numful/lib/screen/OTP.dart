@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:numful/screen/OTP2.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:numful/utility/my_constant.dart';
 import 'package:numful/widgets/show_title.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 class Otp extends StatefulWidget {
   @override
   State<Otp> createState() => _OtpState();
 }
 
+final phone = MultiValidator([
+  RequiredValidator(errorText: 'กรุณากรอกเบอร์มือถือของคุณ'),
+  MinLengthValidator(10, errorText: 'เบอร์โทรต้องมีความยาวอย่างน้อย 10 ตัว'),
+]);
+
 class _OtpState extends State<Otp> {
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
@@ -30,15 +36,18 @@ class _OtpState extends State<Otp> {
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         behavior: HitTestBehavior.opaque,
-        child: ListView(
-          //padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
-          children: [
-            buildtext('ยืนยันหมายเลขโทรศัพท์มือถือของคุณ'),
-            buildtext2('กรอกเบอร์โทรศัพท์ของคุณ 10 หลัก'),
-            buildtext2('+66XXXXXXXXX'),
-            buildPhone(size),
-            buildNext(size),
-          ],
+        child: Form(
+          key: formKey,
+          child: ListView(
+            //padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+            children: [
+              buildtext('ยืนยันหมายเลขโทรศัพท์มือถือของคุณ'),
+              buildtext2('กรอกเบอร์โทรศัพท์ของคุณ 10 หลัก'),
+              buildtext2('+66XXXXXXXXX'),
+              buildPhone(size),
+              buildNext(size),
+            ],
+          ),
         ),
       ),
     );
@@ -78,6 +87,9 @@ class _OtpState extends State<Otp> {
           margin: EdgeInsets.only(top: 40),
           width: size * 0.9,
           child: TextFormField(
+            keyboardType: TextInputType.phone,
+            style: TextStyle(fontSize: 18),
+            validator: phone,
             decoration: InputDecoration(
               labelStyle: MyCostant().h4Style(),
               labelText: 'เบอร์โทร',
@@ -108,9 +120,13 @@ class _OtpState extends State<Otp> {
           child: ElevatedButton(
             style: MyCostant().myButtonStyle(),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Otp2();
-              }));
+              //if (formKey.currentState!.validate()) {}
+              if (formKey.currentState!.validate() == false) {
+              } else {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return Otp2();
+                }));
+              }
             },
             child: ShowTitle(
               title: 'ต่อไป',

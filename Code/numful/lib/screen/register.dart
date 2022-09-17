@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:numful/screen/OTP.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:numful/screen/login.dart';
 import 'package:numful/utility/my_constant.dart';
 import 'package:numful/widgets/show_title.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -11,6 +10,8 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final formKey = GlobalKey<FormState>();
+
   bool statusRedEye = true;
   @override
   Widget build(BuildContext context) {
@@ -32,16 +33,19 @@ class _RegisterState extends State<Register> {
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         behavior: HitTestBehavior.opaque,
-        child: ListView(
-          children: [
-            buildTextreg('สมัครสมาชิก'),
-            buildEmail(size),
-            buildPassword(size),
-            buildFirstName(size),
-            buildLastName(size),
-            buildLogin(context),
-            buildNext(size),
-          ],
+        child: Form(
+          key: formKey,
+          child: ListView(
+            children: [
+              buildTextreg('สมัครสมาชิก'),
+              buildEmail(size),
+              buildPassword(size),
+              buildFirstName(size),
+              buildLastName(size),
+              buildLogin(context),
+              buildNext(size),
+            ],
+          ),
         ),
       ),
     );
@@ -65,6 +69,11 @@ class _RegisterState extends State<Register> {
           margin: EdgeInsets.only(top: 40),
           width: size * 0.9,
           child: TextFormField(
+            keyboardType: TextInputType.emailAddress,
+            validator: MultiValidator([
+              RequiredValidator(errorText: 'กรุณากรอกอีเมลของคุณ'),
+              EmailValidator(errorText: 'รูปแบบอีเมลของคุณไม่ถูกต้อง'),
+            ]),
             decoration: InputDecoration(
               labelStyle: MyCostant().h4Style(),
               labelText: 'อีเมล',
@@ -93,6 +102,11 @@ class _RegisterState extends State<Register> {
           margin: EdgeInsets.only(top: 20),
           width: size * 0.9,
           child: TextFormField(
+            validator: MultiValidator([
+              RequiredValidator(errorText: 'กรุณากรอกรหัสผ่านของคุณ'),
+              MinLengthValidator(8,
+                  errorText: 'รหัสผ่านอย่างน้อยต้องมี 8 ตัวอักษร'),
+            ]),
             obscureText: statusRedEye,
             decoration: InputDecoration(
               suffixIcon: IconButton(
@@ -135,6 +149,7 @@ class _RegisterState extends State<Register> {
           margin: EdgeInsets.only(top: 20),
           width: size * 0.9,
           child: TextFormField(
+            validator: RequiredValidator(errorText: 'กรุณากรอกชื่อของคุณ'),
             decoration: InputDecoration(
               labelStyle: MyCostant().h4Style(),
               labelText: 'ชื่อจริง',
@@ -163,6 +178,7 @@ class _RegisterState extends State<Register> {
           margin: EdgeInsets.only(top: 20),
           width: size * 0.9,
           child: TextFormField(
+            validator: RequiredValidator(errorText: 'กรุณากรอกนามสกุลของคุณ'),
             decoration: InputDecoration(
               labelStyle: MyCostant().h4Style(),
               labelText: 'นามสกุล',
@@ -211,9 +227,13 @@ class _RegisterState extends State<Register> {
           child: ElevatedButton(
             style: MyCostant().myButtonStyle(),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Otp();
-              }));
+              //if (formKey.currentState!.validate()) {}
+              if (formKey.currentState!.validate() == false) {
+              } else {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return Otp();
+                }));
+              }
             },
             child: ShowTitle(
               title: 'ต่อไป',
