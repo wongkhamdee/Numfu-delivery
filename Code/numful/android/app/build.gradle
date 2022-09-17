@@ -30,6 +30,7 @@ android {
     ndkVersion flutter.ndkVersion
 
     compileOptions {
+        compileSdkVersion 33
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -47,7 +48,9 @@ android {
         applicationId "com.example.numful"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 20
+        //targetSdkVersion 30
+        //minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

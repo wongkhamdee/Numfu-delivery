@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:numful/screen/forgetpass.dart';
+import 'package:numful/screen/location.dart';
 import 'package:numful/utility/my_constant.dart';
 
 class Index extends StatefulWidget {
@@ -62,7 +62,7 @@ class _IndexState extends State<Index> {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return Forgetpass();
+                              return Location();
                             }));
                           },
                           child: const Text(

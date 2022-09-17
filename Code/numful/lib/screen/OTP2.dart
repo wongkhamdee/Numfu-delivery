@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:numful/screen/Launcher.dart';
+import 'package:numful/utility/my_constant.dart';
+import 'package:numful/widgets/show_title.dart';
 
 class Otp2 extends StatefulWidget {
   @override
@@ -10,6 +12,7 @@ class Otp2 extends StatefulWidget {
 class _Otp2State extends State<Otp2> {
   @override
   Widget build(BuildContext context) {
+    double size = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
@@ -53,37 +56,35 @@ class _Otp2State extends State<Otp2> {
               SizedBox(
                 height: 60,
               ),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: Color.fromARGB(255, 255, 158, 87),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 168, vertical: 8),
-                          textStyle: const TextStyle(fontSize: 20),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50))),
-                      child: const Text('ต่อไป',
-                          style: TextStyle(
-                              fontFamily: 'MN',
-                              fontSize: 20,
-                              color: Colors.white)),
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return Launcher();
-                        }));
-                      },
-                    ),
-                  ],
-                ),
-              ),
+              buildNext(size),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Row buildNext(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 16),
+          width: size * 0.9,
+          child: ElevatedButton(
+            style: MyCostant().myButtonStyle(),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Launcher();
+              }));
+            },
+            child: ShowTitle(
+              title: 'ต่อไป',
+              textStyle: MyCostant().h5button(),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -26,41 +26,41 @@ class _LoginState extends State<Login> {
     double size = MediaQuery.of(context).size.width;
     //ประกาศ size ให้ปรับขนาด auto ตามขนาดหน้าจอ
     return Scaffold(
+        backgroundColor: Colors.white,
         body: SafeArea(
-      //padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
+          //padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
 
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        behavior: HitTestBehavior.opaque,
-        child: ListView(
-          children: [
-            buildImage(size),
-            buildAppName(),
-            buildText(),
-            buildEmail(size),
-            buildPassword(size),
-            //buildRememb(context),
-            buildRemember(),
-            buildLogin(size),
-            buildOR(),
-            buildRegister(size),
-          ],
-        ),
-      ),
-    ));
+          child: GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            behavior: HitTestBehavior.opaque,
+            child: ListView(
+              children: [
+                buildImage(size),
+                buildAppName(),
+                buildText(),
+                buildEmail(size),
+                buildPassword(size),
+                buildRemember(),
+                buildLogin(size),
+                buildOR(),
+                buildRegister(size),
+              ],
+            ),
+          ),
+        ));
   }
 
   Container buildRemember() {
     return Container(
-      margin: EdgeInsets.symmetric(
-        horizontal: 10,
-      ),
+      margin: EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
               Checkbox(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5)),
                   fillColor: MaterialStateProperty.resolveWith<Color>((states) {
                     if (states.contains(MaterialState.disabled)) {
                       return Colors.orange.withOpacity(.32);
@@ -76,7 +76,8 @@ class _LoginState extends State<Login> {
             ],
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () =>
+                Navigator.pushNamed(context, MyCostant.routeforgetpass),
             child: Text(
               'ลืมรหัสผ่าน?',
               style: TextStyle(color: MyCostant.dark),
@@ -85,37 +86,6 @@ class _LoginState extends State<Login> {
         ],
       ),
     );
-  }
-
-  Container buildRememb(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.symmetric(
-          horizontal: 10,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Radio(
-              value: 1,
-              groupValue: null,
-              onChanged: null,
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: const TextStyle(fontFamily: 'MN'),
-              ),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Forgetpass();
-                }));
-              },
-              child: const Text(
-                'ลืมรหัสผ่าน?',
-                style: TextStyle(color: Color(0xFF757575)),
-              ),
-            ),
-          ],
-        ));
   }
 
   Container buildOR() {
@@ -212,7 +182,7 @@ class _LoginState extends State<Login> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 10),
+          margin: EdgeInsets.only(top: 20),
           width: size * 0.9,
           child: TextFormField(
             controller: password,
@@ -258,11 +228,11 @@ class _LoginState extends State<Login> {
           margin: EdgeInsets.only(top: 40),
         ),
         ShowTitle(
-          title: "ยินดีต้อนรับ",
+          title: 'ยินดีต้อนรับ',
           textStyle: MyCostant().h2Style(),
         ),
         ShowTitle(
-          title: "ลงชื่อเข้าบัญชีของคุณ",
+          title: 'ลงชื่อเข้าบัญชีของคุณ',
           textStyle: MyCostant().h2Style(),
         ),
       ],

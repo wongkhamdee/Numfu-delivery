@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:numful/screen/OTP.dart';
+import 'package:numful/screen/OTP2.dart';
 import 'package:numful/screen/authen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:numful/screen/forgetpass.dart';
 import 'package:numful/screen/login.dart';
+import 'package:numful/screen/register.dart';
 import 'package:numful/utility/my_constant.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -10,6 +14,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 final Map<String, WidgetBuilder> map = {
   '/login': (BuildContext Context) => Login(),
+  '/register': (BuildContext Context) => Register(),
+  '/OTP': (BuildContext Context) => Otp(),
+  '/OTP2': (BuildContext Context) => Otp2(),
+  '/forgetpass': (BuildContext Context) => Forgetpass(),
 };
 
 String? initlalRoute;

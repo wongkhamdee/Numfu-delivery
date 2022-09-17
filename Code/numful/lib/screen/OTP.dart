@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:numful/screen/OTP2.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:numful/utility/my_constant.dart';
+import 'package:numful/widgets/show_title.dart';
 
 class Otp extends StatefulWidget {
   @override
@@ -10,6 +12,7 @@ class Otp extends StatefulWidget {
 class _OtpState extends State<Otp> {
   @override
   Widget build(BuildContext context) {
+    double size = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -24,85 +27,98 @@ class _OtpState extends State<Otp> {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-        child: SingleChildScrollView(
-          //ป้องกันตอนย้อนกลับมาปุ่ม overflow
-          child: Column(
-            children: [
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Text("ยืนยันหมายเลขโทรศัพท์มือถือของคุณ",
-                        style: TextStyle(fontSize: 25)),
-                  ],
-                ),
-              ),
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      "กรอกเบอร์โทรศัพท์มือถือของคุณ",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      "+66xxxxxxxx",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              TextField(
-                cursorHeight: 20,
-                decoration: InputDecoration(
-                  labelText: 'เบอร์โทร',
-                  hintText: "กรอกเบอร์โทรศัพท์ของคุณ",
-                  suffixIcon: Icon(Icons.phone),
-                  contentPadding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(color: Colors.grey, width: 2),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(color: Colors.grey, width: 1.5),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: Color.fromARGB(255, 255, 158, 87),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 168, vertical: 8),
-                    textStyle: const TextStyle(fontSize: 20),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50))),
-                child: const Text('ต่อไป',
-                    style: TextStyle(
-                        fontFamily: 'MN', fontSize: 20, color: Colors.white)),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Otp2();
-                  }));
-                },
-              ),
-            ],
-          ),
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        behavior: HitTestBehavior.opaque,
+        child: ListView(
+          //padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+          children: [
+            buildtext('ยืนยันหมายเลขโทรศัพท์มือถือของคุณ'),
+            buildtext2('กรอกเบอร์โทรศัพท์ของคุณ 10 หลัก'),
+            buildtext2('+66XXXXXXXXX'),
+            buildPhone(size),
+            buildNext(size),
+          ],
         ),
       ),
+    );
+  }
+
+  Container buildtext(String title) {
+    return Container(
+      margin: EdgeInsets.only(left: 20),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              ShowTitle(title: title, textStyle: MyCostant().h2Style()),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container buildtext2(title2) {
+    return Container(
+      margin: EdgeInsets.only(left: 20),
+      child: Row(
+        children: [
+          ShowTitle(title: title2, textStyle: MyCostant().h3Style()),
+        ],
+      ),
+    );
+  }
+
+  Row buildPhone(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 40),
+          width: size * 0.9,
+          child: TextFormField(
+            decoration: InputDecoration(
+              labelStyle: MyCostant().h4Style(),
+              labelText: 'เบอร์โทร',
+              hintText: "กรอกเบอร์โทรศัพท์ของคุณ",
+              suffixIcon: Icon(Icons.phone_android),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: MyCostant.dark, width: 2),
+                  borderRadius: BorderRadius.circular(30)),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: MyCostant.light, width: 2),
+                  borderRadius: BorderRadius.circular(30)),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row buildNext(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 16),
+          width: size * 0.9,
+          child: ElevatedButton(
+            style: MyCostant().myButtonStyle(),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Otp2();
+              }));
+            },
+            child: ShowTitle(
+              title: 'ต่อไป',
+              textStyle: MyCostant().h5button(),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

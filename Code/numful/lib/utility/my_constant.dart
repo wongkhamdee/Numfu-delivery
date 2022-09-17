@@ -7,6 +7,10 @@ class MyCostant {
 
   // Route
   static String routelogin = '/login';
+  static String routeregister = '/register';
+  static String routeOTP = '/OTP';
+  static String routeOTP2 = '/OTP2';
+  static String routeforgetpass = '/forgetpass';
 
   // Image
   static String logo = 'img/logo.png';
@@ -26,6 +30,12 @@ class MyCostant {
         fontFamily: GoogleFonts.khand().fontFamily,
       );
 
+  TextStyle h1tStyle() => TextStyle(
+        fontSize: 36,
+        color: black,
+        fontWeight: FontWeight.normal,
+      );
+
   TextStyle h2Style() => TextStyle(
         fontSize: 25,
         color: black,
@@ -34,7 +44,7 @@ class MyCostant {
   TextStyle h3Style() => TextStyle(
         fontSize: 18,
         color: black,
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.normal,
       );
   TextStyle h4Style() => TextStyle(
         fontSize: 16,
