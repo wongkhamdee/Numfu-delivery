@@ -11,6 +11,7 @@ class MyCostant {
   static String routeOTP = '/OTP';
   static String routeOTP2 = '/OTP2';
   static String routeforgetpass = '/forgetpass';
+  static String routeluncher = '/Launcher';
 
   // Image
   static String logo = 'img/logo.png';

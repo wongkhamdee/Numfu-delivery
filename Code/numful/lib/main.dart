@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:numful/screen/Launcher.dart';
 import 'package:numful/screen/OTP.dart';
 import 'package:numful/screen/OTP2.dart';
 import 'package:numful/screen/authen.dart';
@@ -18,6 +19,7 @@ final Map<String, WidgetBuilder> map = {
   '/OTP': (BuildContext Context) => Otp(),
   '/OTP2': (BuildContext Context) => Otp2(),
   '/forgetpass': (BuildContext Context) => Forgetpass(),
+  '/Launcher': (BuildContext Context) => Launcher(),
 };
 
 String? initlalRoute;

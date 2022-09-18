@@ -1,4 +1,4 @@
-package com.example.numful
+package com.example.numfu
 
 import io.flutter.embedding.android.FlutterActivity
 

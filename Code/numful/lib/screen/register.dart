@@ -1,8 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:numful/screen/OTP.dart';
 import 'package:numful/utility/my_constant.dart';
 import 'package:numful/widgets/show_title.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+/*import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';*/
 
 class Register extends StatefulWidget {
   @override
@@ -11,43 +14,65 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final formKey = GlobalKey<FormState>();
-
+  final Future<FirebaseApp> firebase = Firebase.initializeApp();
   bool statusRedEye = true;
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: IconButton(
-            icon: Icon(
-              Icons.navigate_before,
-              size: 38,
+    return FutureBuilder(
+      future: firebase,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Error'),
             ),
-            onPressed: () {
-              Navigator.pop(context);
-            }),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        behavior: HitTestBehavior.opaque,
-        child: Form(
-          key: formKey,
-          child: ListView(
-            children: [
-              buildTextreg('สมัครสมาชิก'),
-              buildEmail(size),
-              buildPassword(size),
-              buildFirstName(size),
-              buildLastName(size),
-              buildLogin(context),
-              buildNext(size),
-            ],
+            body: Center(
+              child: Text('${snapshot.error}'),
+            ),
+          );
+        }
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              leading: IconButton(
+                  icon: Icon(
+                    Icons.navigate_before,
+                    size: 38,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+              backgroundColor: Colors.white,
+              elevation: 0,
+            ),
+            body: GestureDetector(
+              onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+              behavior: HitTestBehavior.opaque,
+              child: Form(
+                key: formKey,
+                child: ListView(
+                  children: [
+                    buildTextreg('สมัครสมาชิก'),
+                    buildEmail(size),
+                    buildPassword(size),
+                    buildFirstName(size),
+                    buildLastName(size),
+                    buildLogin(context),
+                    buildNext(size),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+        return Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
