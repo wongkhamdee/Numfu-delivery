@@ -1,11 +1,15 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:numful/screen/OTP.dart';
+import 'package:numful/screen/profile.dart';
+import 'package:numful/screen/proreg.dart';
 import 'package:numful/utility/my_constant.dart';
 import 'package:numful/widgets/show_title.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-/*import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';*/
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -14,6 +18,8 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final formKey = GlobalKey<FormState>();
+  Proreg profile = Proreg(email: '', password: '');
+
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
   bool statusRedEye = true;
   @override
@@ -94,6 +100,9 @@ class _RegisterState extends State<Register> {
           margin: EdgeInsets.only(top: 40),
           width: size * 0.9,
           child: TextFormField(
+            onSaved: (String? email) {
+              profile.email = email!;
+            },
             keyboardType: TextInputType.emailAddress,
             validator: MultiValidator([
               RequiredValidator(errorText: 'กรุณากรอกอีเมลของคุณ'),
@@ -129,9 +138,12 @@ class _RegisterState extends State<Register> {
           child: TextFormField(
             validator: MultiValidator([
               RequiredValidator(errorText: 'กรุณากรอกรหัสผ่านของคุณ'),
-              MinLengthValidator(8,
-                  errorText: 'รหัสผ่านอย่างน้อยต้องมี 8 ตัวอักษร'),
+              MinLengthValidator(6,
+                  errorText: 'รหัสผ่านอย่างน้อยต้องมี 6 ตัวอักษร'),
             ]),
+            onSaved: (String? password) {
+              profile.password = password!;
+            },
             obscureText: statusRedEye,
             decoration: InputDecoration(
               suffixIcon: IconButton(
@@ -252,7 +264,6 @@ class _RegisterState extends State<Register> {
           child: ElevatedButton(
             style: MyCostant().myButtonStyle(),
             onPressed: () {
-              //if (formKey.currentState!.validate()) {}
               if (formKey.currentState!.validate() == false) {
               } else {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -260,6 +271,34 @@ class _RegisterState extends State<Register> {
                 }));
               }
             },
+            /* onPressed: () async {
+              if (formKey.currentState!.validate()) {
+                formKey.currentState!.save();
+                try {
+                  await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                      email: profile.email, password: profile.password);
+                  Fluttertoast.showToast(
+                      msg: "สร้างบัญชีผู้ใช้เรียบร้อยแล้ว",
+                      gravity: ToastGravity.TOP);
+                  formKey.currentState!.reset();
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
+                    return Otp();
+                  }));
+                } on FirebaseAuthException catch (e) {
+                  //print(e.message);
+                  Fluttertoast.showToast(
+                      msg: e.message!, gravity: ToastGravity.CENTER);
+                }
+              }
+              //if (formKey.currentState!.validate()) {}
+              /*if (formKey.currentState!.validate() == false) {
+              } else {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return Otp();
+                }));
+              }*/
+            },*/
             child: ShowTitle(
               title: 'ต่อไป',
               textStyle: MyCostant().h5button(),

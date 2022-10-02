@@ -46,6 +46,9 @@ dependencies:
   form_field_validator: ^1.1.0
   firebase_core: ^1.22.0
   firebase_auth: ^3.9.0
+  cloud_firestore: ^3.4.8
+  fluttertoast: ^8.0.9
+ 
 
 dev_dependencies:
   flutter_test:

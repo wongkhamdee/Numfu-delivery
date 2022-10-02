@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:numful/screen/Launcher.dart';
 import 'package:numful/screen/forgetpass.dart';
+import 'package:numful/screen/index.dart';
 import 'package:numful/screen/register.dart';
 import 'package:numful/utility/my_constant.dart';
 import 'package:numful/widgets/show_image.dart';
@@ -10,7 +11,6 @@ import 'package:numful/widgets/show_title.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -20,13 +20,27 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  Future signIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim());
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   final formKey = GlobalKey<FormState>();
   bool isChecked = false;
-  /*TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();*/
+
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
   bool statusRedEye = true;
-  String? email, password;
 
   @override
   Widget build(BuildContext context) {
@@ -119,8 +133,13 @@ class _LoginState extends State<Login> {
           width: size * 0.9,
           child: ElevatedButton(
             style: MyCostant().myButtonStyle(),
-            onPressed: () async {
-              /*if (formKey.currentState.validate()) {
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Index();
+              }));
+            },
+            //onPressed: signIn,
+            /*if (formKey.currentState.validate()) {
                 formKey.currentState.save();
                 try {} on FirebaseAuthException catch (e) {
                   Fluttertoast.showToast(
@@ -131,12 +150,12 @@ class _LoginState extends State<Login> {
               }
               ;*/
 
-              /*if ((email?.isEmpty ?? true) || (password?.isEmpty ?? true)) {
+            /*if ((email?.isEmpty ?? true) || (password?.isEmpty ?? true)) {
                 showDialog(context, 'กรุณากรอกข้อมูลของคุณให้ครบถ้วน');
               } else {
                 checkAuthan();
               }*/
-            },
+
             child: ShowTitle(
               title: 'เข้าสู่ระบบ',
               textStyle: MyCostant().h5button(),
@@ -179,13 +198,14 @@ class _LoginState extends State<Login> {
           margin: EdgeInsets.only(top: 40),
           width: size * 0.9,
           child: TextFormField(
-            onChanged: (value) => email = value.trim(),
+            controller: emailController,
             keyboardType: TextInputType.emailAddress,
             validator: MultiValidator([
               RequiredValidator(errorText: 'กรุณากรอกอีเมลของคุณ'),
               EmailValidator(errorText: 'รูปแบบอีเมลของคุณไม่ถูกต้อง'),
             ]),
-            //controller: email,
+            // controller: emailc,
+
             decoration: InputDecoration(
               labelStyle: MyCostant().h4Style(),
               labelText: 'อีเมล',
@@ -214,13 +234,13 @@ class _LoginState extends State<Login> {
           margin: EdgeInsets.only(top: 20),
           width: size * 0.9,
           child: TextFormField(
-            onChanged: (value) => password = value.trim(),
             validator: MultiValidator([
               RequiredValidator(errorText: 'กรุณากรอกรหัสผ่านของคุณ'),
               MinLengthValidator(8,
                   errorText: 'รหัสผ่านอย่างน้อยต้องมี 8 ตัวอักษร'),
             ]),
-            //controller: password,
+            // controller: passwordController,
+            controller: passwordController,
             obscureText: statusRedEye,
             decoration: InputDecoration(
               suffixIcon: IconButton(
