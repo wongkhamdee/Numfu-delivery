@@ -19,9 +19,12 @@ class _LoginState extends State<Login> {
   final passwordController = TextEditingController();
 
   Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim());
+    if (formKey.currentState!.validate() == false) {
+    } else {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+    }
   }
 
   @override
@@ -177,8 +180,6 @@ class _LoginState extends State<Login> {
               RequiredValidator(errorText: 'กรุณากรอกอีเมลของคุณ'),
               EmailValidator(errorText: 'รูปแบบอีเมลของคุณไม่ถูกต้อง'),
             ]),
-            // controller: emailc,
-
             decoration: InputDecoration(
               labelStyle: MyCostant().h4Style(),
               labelText: 'อีเมล',
@@ -209,8 +210,8 @@ class _LoginState extends State<Login> {
           child: TextFormField(
             validator: MultiValidator([
               RequiredValidator(errorText: 'กรุณากรอกรหัสผ่านของคุณ'),
-              MinLengthValidator(8,
-                  errorText: 'รหัสผ่านอย่างน้อยต้องมี 8 ตัวอักษร'),
+              MinLengthValidator(6,
+                  errorText: 'รหัสผ่านอย่างน้อยต้องมี 6 ตัวอักษร'),
             ]),
             // controller: passwordController,
             controller: passwordController,

@@ -17,6 +17,28 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  bool isButtonActive = false;
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController firstnameController = TextEditingController();
+  final TextEditingController lastnameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    firstnameController.dispose();
+    lastnameController.dispose();
+
+    super.dispose();
+  }
+
   final formKey = GlobalKey<FormState>();
   Proreg profile = Proreg(email: '', password: '');
 
@@ -100,14 +122,15 @@ class _RegisterState extends State<Register> {
           margin: EdgeInsets.only(top: 40),
           width: size * 0.9,
           child: TextFormField(
-            onSaved: (String? email) {
-              profile.email = email!;
-            },
-            keyboardType: TextInputType.emailAddress,
             validator: MultiValidator([
               RequiredValidator(errorText: 'กรุณากรอกอีเมลของคุณ'),
               EmailValidator(errorText: 'รูปแบบอีเมลของคุณไม่ถูกต้อง'),
             ]),
+            controller: emailController,
+            onChanged: buildempty,
+            onSaved: (String? email) {
+              profile.email = email!;
+            },
             decoration: InputDecoration(
               labelStyle: MyCostant().h4Style(),
               labelText: 'อีเมล',
@@ -136,11 +159,13 @@ class _RegisterState extends State<Register> {
           margin: EdgeInsets.only(top: 20),
           width: size * 0.9,
           child: TextFormField(
+            controller: passwordController,
             validator: MultiValidator([
               RequiredValidator(errorText: 'กรุณากรอกรหัสผ่านของคุณ'),
               MinLengthValidator(6,
                   errorText: 'รหัสผ่านอย่างน้อยต้องมี 6 ตัวอักษร'),
             ]),
+            onChanged: buildempty,
             onSaved: (String? password) {
               profile.password = password!;
             },
@@ -186,6 +211,8 @@ class _RegisterState extends State<Register> {
           margin: EdgeInsets.only(top: 20),
           width: size * 0.9,
           child: TextFormField(
+            controller: firstnameController,
+            onChanged: buildempty,
             validator: RequiredValidator(errorText: 'กรุณากรอกชื่อของคุณ'),
             decoration: InputDecoration(
               labelStyle: MyCostant().h4Style(),
@@ -215,6 +242,8 @@ class _RegisterState extends State<Register> {
           margin: EdgeInsets.only(top: 20),
           width: size * 0.9,
           child: TextFormField(
+            controller: lastnameController,
+            onChanged: buildempty,
             validator: RequiredValidator(errorText: 'กรุณากรอกนามสกุลของคุณ'),
             decoration: InputDecoration(
               labelStyle: MyCostant().h4Style(),
@@ -234,6 +263,18 @@ class _RegisterState extends State<Register> {
         ),
       ],
     );
+  }
+
+  void buildempty(data) {
+    if (emailController.text.isEmpty ||
+        passwordController.text.isEmpty ||
+        firstnameController.text.isEmpty ||
+        lastnameController.text.isEmpty) {
+      isButtonActive = false;
+    } else {
+      isButtonActive = true;
+    }
+    setState(() {});
   }
 
   Container buildLogin(BuildContext context) {
@@ -263,41 +304,35 @@ class _RegisterState extends State<Register> {
           width: size * 0.9,
           child: ElevatedButton(
             style: MyCostant().myButtonStyle(),
-            onPressed: () {
+            onPressed: isButtonActive
+                ? () {
+                    if (formKey.currentState!.validate() == false) {
+                    } else {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return Otp();
+                      }));
+                    }
+                  }
+                : null,
+
+            /*onPressed: isButtonActive
+                ? () {
+                    setState(() => isButtonActive = false);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return Otp();
+                    }));
+                  }
+                : null,*/
+
+            /*onPressed: () {
               if (formKey.currentState!.validate() == false) {
               } else {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return Otp();
                 }));
               }
-            },
-            /* onPressed: () async {
-              if (formKey.currentState!.validate()) {
-                formKey.currentState!.save();
-                try {
-                  await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                      email: profile.email, password: profile.password);
-                  Fluttertoast.showToast(
-                      msg: "สร้างบัญชีผู้ใช้เรียบร้อยแล้ว",
-                      gravity: ToastGravity.TOP);
-                  formKey.currentState!.reset();
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return Otp();
-                  }));
-                } on FirebaseAuthException catch (e) {
-                  //print(e.message);
-                  Fluttertoast.showToast(
-                      msg: e.message!, gravity: ToastGravity.CENTER);
-                }
-              }
-              //if (formKey.currentState!.validate()) {}
-              /*if (formKey.currentState!.validate() == false) {
-              } else {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Otp();
-                }));
-              }*/
             },*/
             child: ShowTitle(
               title: 'ต่อไป',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:numfu/screen/OTP2.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:numfu/widgets/show_title.dart';
@@ -15,6 +16,28 @@ final phone = MultiValidator([
 ]);
 
 class _OtpState extends State<Otp> {
+  bool isButtonActive = false;
+
+  late TextEditingController phoneController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    phoneController = TextEditingController();
+    phoneController.addListener(() {
+      final isButtonActive = phoneController.text.isNotEmpty;
+      setState(() => this.isButtonActive = isButtonActive);
+    });
+  }
+
+  @override
+  void dispose() {
+    phoneController.dispose();
+
+    super.dispose();
+  }
+
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -46,6 +69,18 @@ class _OtpState extends State<Otp> {
               buildtext2('+66XXXXXXXXX'),
               buildPhone(size),
               buildNext(size),
+              IntlPhoneField(
+                showCountryFlag: false,
+                showDropdownIcon: false,
+                controller: phoneController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                    )),
+              )
             ],
           ),
         ),
@@ -87,6 +122,7 @@ class _OtpState extends State<Otp> {
           margin: EdgeInsets.only(top: 40),
           width: size * 0.9,
           child: TextFormField(
+            controller: phoneController,
             keyboardType: TextInputType.phone,
             style: TextStyle(fontSize: 18),
             validator: phone,
@@ -119,15 +155,18 @@ class _OtpState extends State<Otp> {
           width: size * 0.9,
           child: ElevatedButton(
             style: MyCostant().myButtonStyle(),
-            onPressed: () {
-              //if (formKey.currentState!.validate()) {}
-              if (formKey.currentState!.validate() == false) {
-              } else {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Otp2();
-                }));
-              }
-            },
+            onPressed: isButtonActive
+                ? () {
+                    if (formKey.currentState!.validate() == false) {
+                      setState(() => isButtonActive = false);
+                    } else {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return Otp2();
+                      }));
+                    }
+                  }
+                : null,
             child: ShowTitle(
               title: 'ต่อไป',
               textStyle: MyCostant().h5button(),
