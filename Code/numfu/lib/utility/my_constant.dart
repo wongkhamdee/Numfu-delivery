@@ -18,6 +18,7 @@ class MyCostant {
 
   // Color
   static Color primary = Color(0xffff8126);
+  static Color pritwo = Color(0xffFFC077);
   static Color dark = Color(0xff757575);
   static Color light = Color(0xffffb257);
   static Color black = Color(0xff000000);

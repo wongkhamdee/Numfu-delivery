@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:numfu/screen/Launcher.dart';
+import 'package:numfu/screen/login.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:numfu/widgets/show_title.dart';
 
@@ -74,7 +75,7 @@ class _Otp2State extends State<Otp2> {
             style: MyCostant().myButtonStyle(),
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Launcher();
+                return Login();
               }));
             },
             child: ShowTitle(

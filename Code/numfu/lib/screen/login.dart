@@ -18,6 +18,7 @@ class _LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   Future signIn() async {
     if (formKey.currentState!.validate() == false) {
     } else {
@@ -45,6 +46,7 @@ class _LoginState extends State<Login> {
     double size = MediaQuery.of(context).size.width;
     //ประกาศ size ให้ปรับขนาด auto ตามขนาดหน้าจอ
     return Scaffold(
+        key: scaffoldKey,
         backgroundColor: Colors.white,
         body: SafeArea(
           //padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),

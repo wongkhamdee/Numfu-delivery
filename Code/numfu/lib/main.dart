@@ -28,6 +28,7 @@ String? initlalRoute;
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   initlalRoute = MyCostant.routeluncher;
   runApp(MyApp());
 }
@@ -43,6 +44,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      //debugShowCheckedModeBanner: false,
+
       title: MyCostant.appName,
       routes: map,
       //initialRoute: initlalRoute,

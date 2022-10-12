@@ -3,6 +3,7 @@ import 'package:numfu/screen/wallet.dart';
 import 'package:numfu/screen/history.dart';
 import 'package:numfu/screen/index.dart';
 import 'package:numfu/screen/profile.dart';
+import 'package:numfu/utility/my_constant.dart';
 
 class Launcher extends StatefulWidget {
   static const routeName = '/';
@@ -55,6 +56,7 @@ class _LauncherState extends State<Launcher> {
       bottomNavigationBar: BottomNavigationBar(
         items: _menuBar,
         currentIndex: _selectedIndex,
+        backgroundColor: MyCostant.black,
         selectedItemColor: Theme.of(context).primaryColor,
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
