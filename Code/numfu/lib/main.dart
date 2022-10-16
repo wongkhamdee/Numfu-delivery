@@ -8,8 +8,6 @@ import 'package:numfu/screen/index.dart';
 import 'package:numfu/screen/login.dart';
 import 'package:numfu/screen/register.dart';
 import 'package:numfu/utility/my_constant.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:numfu/screen/OTP.dart';
 import 'package:numfu/screen/register.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:numfu/widgets/show_image.dart';
@@ -155,7 +156,7 @@ class _LoginState extends State<Login> {
             style: MyCostant().myButtonStyle(),
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Register();
+                return Otp();
               }));
             },
             child: ShowTitle(

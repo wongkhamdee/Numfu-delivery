@@ -1,9 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:numfu/screen/OTP2.dart';
+import 'package:numfu/screen/index.dart';
+import 'package:numfu/screen/register.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:numfu/widgets/show_title.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Otp extends StatefulWidget {
   @override
@@ -18,68 +23,154 @@ final phone = MultiValidator([
 class _OtpState extends State<Otp> {
   bool isButtonActive = false;
 
-  late TextEditingController phoneController;
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  double screenHeight = 0;
+  double screenWidth = 0;
+  double bottom = 0;
 
-  @override
-  void initState() {
-    super.initState();
+  String otpPin = " ";
+  String countryDial = "+1";
+  String verID = " ";
 
-    phoneController = TextEditingController();
-    phoneController.addListener(() {
-      final isButtonActive = phoneController.text.isNotEmpty;
-      setState(() => this.isButtonActive = isButtonActive);
+  int screenState = 0;
+
+  Future<void> verifyPhone(String number) async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: number,
+      timeout: const Duration(seconds: 20),
+      verificationCompleted: (PhoneAuthCredential credential) {
+        showSnackBarText("Auth Completed!");
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        showSnackBarText("Auth Failed!");
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        showSnackBarText("OTP Sent!");
+        verID = verificationId;
+        setState(() {
+          screenState = 1;
+        });
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        showSnackBarText("Timeout!");
+      },
+    );
+  }
+
+  Future<void> verifyOTP() async {
+    await FirebaseAuth.instance
+        .signInWithCredential(
+      PhoneAuthProvider.credential(
+        verificationId: verID,
+        smsCode: otpPin,
+      ),
+    )
+        .whenComplete(() {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const Index(),
+        ),
+      );
     });
   }
 
   @override
-  void dispose() {
-    phoneController.dispose();
-
-    super.dispose();
-  }
-
-  final formKey = GlobalKey<FormState>();
-  @override
   Widget build(BuildContext context) {
-    double size = MediaQuery.of(context).size.width;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: IconButton(
-            icon: Icon(
-              Icons.navigate_before,
-              size: 38,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            }),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        behavior: HitTestBehavior.opaque,
-        child: Form(
-          key: formKey,
-          child: ListView(
-            //padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
+    bottom = MediaQuery.of(context).viewInsets.bottom;
+
+    return WillPopScope(
+      onWillPop: () {
+        setState(() {
+          screenState = 0;
+        });
+        return Future.value(false);
+      },
+      child: Scaffold(
+        body: SizedBox(
+          height: screenHeight,
+          width: screenWidth,
+          child: Stack(
             children: [
-              buildtext('ยืนยันหมายเลขโทรศัพท์มือถือของคุณ'),
-              buildtext2('กรอกเบอร์โทรศัพท์ของคุณ 10 หลัก'),
-              buildtext2('+66XXXXXXXXX'),
-              buildPhone(size),
-              buildNext(size),
-              IntlPhoneField(
-                showCountryFlag: false,
-                showDropdownIcon: false,
-                controller: phoneController,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(top: screenHeight / 8),
+                  child: Column(
+                    children: [
+                      Text(
+                        "",
+                      ),
+                      Text(
+                        "",
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: AnimatedContainer(
+                  height: bottom > 0 ? screenHeight : screenHeight / 2,
+                  width: screenWidth,
+                  color: Colors.white,
+                  duration: const Duration(milliseconds: 800),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: screenWidth / 12,
+                      right: screenWidth / 12,
+                      top: bottom > 0 ? screenHeight / 12 : 0,
                     ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                    )),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        screenState == 0 ? stateRegister() : stateOTP(),
+                        GestureDetector(
+                          onTap: () {
+                            if (screenState == 0) {
+                              if (usernameController.text.isEmpty) {
+                                showSnackBarText("Username is still empty!");
+                              } else if (phoneController.text.isEmpty) {
+                                showSnackBarText(
+                                    "Phone number is still empty!");
+                              } else {
+                                verifyPhone(countryDial + phoneController.text);
+                              }
+                            } else {
+                              if (otpPin.length >= 6) {
+                                verifyOTP();
+                              } else {
+                                showSnackBarText("Enter OTP correctly!");
+                              }
+                            }
+                          },
+                          child: Container(
+                            height: 50,
+                            width: screenWidth,
+                            margin: EdgeInsets.only(bottom: screenHeight / 12),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "CONTINUE",
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1.5,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               )
             ],
           ),
@@ -88,57 +179,64 @@ class _OtpState extends State<Otp> {
     );
   }
 
-  Container buildtext(String title) {
-    return Container(
-      margin: EdgeInsets.only(left: 20),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              ShowTitle(title: title, textStyle: MyCostant().h2Style()),
-            ],
-          ),
-        ],
+  void showSnackBarText(String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
       ),
     );
   }
 
-  Container buildtext2(title2) {
-    return Container(
-      margin: EdgeInsets.only(left: 20),
-      child: Row(
-        children: [
-          ShowTitle(title: title2, textStyle: MyCostant().h3Style()),
-        ],
-      ),
-    );
-  }
-
-  Row buildPhone(double size) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+  Widget stateRegister() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          margin: EdgeInsets.only(top: 40),
-          width: size * 0.9,
-          child: TextFormField(
-            controller: phoneController,
-            keyboardType: TextInputType.phone,
-            style: TextStyle(fontSize: 18),
-            validator: phone,
-            decoration: InputDecoration(
-              labelStyle: MyCostant().h4Style(),
-              labelText: 'เบอร์โทร',
-              hintText: "กรอกเบอร์โทรศัพท์ของคุณ",
-              suffixIcon: Icon(Icons.phone_android),
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: MyCostant.dark, width: 2),
-                  borderRadius: BorderRadius.circular(30)),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: MyCostant.light, width: 2),
-                  borderRadius: BorderRadius.circular(30)),
+        Text(
+          "Username",
+          style: GoogleFonts.montserrat(
+            color: Colors.black87,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        TextFormField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        Text(
+          "Phone number",
+          style: GoogleFonts.montserrat(
+            color: Colors.black87,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        IntlPhoneField(
+          controller: phoneController,
+          showCountryFlag: false,
+          showDropdownIcon: false,
+          initialValue: countryDial,
+          onCountryChanged: (country) {
+            setState(() {
+              countryDial = "+" + country.dialCode;
+            });
+          },
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
             ),
           ),
         ),
@@ -146,31 +244,85 @@ class _OtpState extends State<Otp> {
     );
   }
 
-  Row buildNext(double size) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+  Widget stateOTP() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
-          margin: EdgeInsets.only(top: 16),
-          width: size * 0.9,
-          child: ElevatedButton(
-            style: MyCostant().myButtonStyle(),
-            onPressed: isButtonActive
-                ? () {
-                    if (formKey.currentState!.validate() == false) {
-                      setState(() => isButtonActive = false);
-                    } else {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return Otp2();
-                      }));
-                    }
-                  }
-                : null,
-            child: ShowTitle(
-              title: 'ต่อไป',
-              textStyle: MyCostant().h5button(),
-            ),
+        RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: "We just sent a code to ",
+                style: GoogleFonts.montserrat(
+                  color: Colors.black87,
+                  fontSize: 18,
+                ),
+              ),
+              TextSpan(
+                text: countryDial + phoneController.text,
+                style: GoogleFonts.montserrat(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              TextSpan(
+                text: "\nEnter the code here and we can continue!",
+                style: GoogleFonts.montserrat(
+                  color: Colors.black87,
+                  fontSize: 12,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        PinCodeTextField(
+          appContext: context,
+          length: 6,
+          onChanged: (value) {
+            setState(() {
+              otpPin = value;
+            });
+          },
+          pinTheme: PinTheme(
+            inactiveColor: Colors.black26,
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: "Didn't receive the code? ",
+                style: GoogleFonts.montserrat(
+                  color: Colors.black87,
+                  fontSize: 12,
+                ),
+              ),
+              WidgetSpan(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      screenState = 0;
+                    });
+                  },
+                  child: Text(
+                    "Resend",
+                    style: GoogleFonts.montserrat(
+                      color: Colors.black87,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],
