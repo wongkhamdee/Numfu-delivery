@@ -1,11 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:numfu/screen/OTP2.dart';
-import 'package:numfu/screen/index.dart';
-import 'package:numfu/screen/register.dart';
-import 'package:numfu/utility/my_constant.dart';
-import 'package:numfu/widgets/show_title.dart';
+import 'package:numfu/screen/Launcher.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,7 +19,7 @@ final phone = MultiValidator([
 class _OtpState extends State<Otp> {
   bool isButtonActive = false;
 
-  TextEditingController usernameController = TextEditingController();
+  //TextEditingController usernameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   double screenHeight = 0;
   double screenWidth = 0;
@@ -69,7 +65,7 @@ class _OtpState extends State<Otp> {
         .whenComplete(() {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => const Index(),
+          builder: (context) => const Launcher(),
         ),
       );
     });
@@ -95,22 +91,6 @@ class _OtpState extends State<Otp> {
           child: Stack(
             children: [
               Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(top: screenHeight / 8),
-                  child: Column(
-                    children: [
-                      Text(
-                        "",
-                      ),
-                      Text(
-                        "",
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Align(
                 alignment: Alignment.bottomCenter,
                 child: AnimatedContainer(
                   height: bottom > 0 ? screenHeight : screenHeight / 2,
@@ -131,9 +111,7 @@ class _OtpState extends State<Otp> {
                         GestureDetector(
                           onTap: () {
                             if (screenState == 0) {
-                              if (usernameController.text.isEmpty) {
-                                showSnackBarText("Username is still empty!");
-                              } else if (phoneController.text.isEmpty) {
+                              if (phoneController.text.isEmpty) {
                                 showSnackBarText(
                                     "Phone number is still empty!");
                               } else {
@@ -158,7 +136,7 @@ class _OtpState extends State<Otp> {
                               child: Text(
                                 "CONTINUE",
                                 style: GoogleFonts.montserrat(
-                                  color: Colors.white,
+                                  color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: 1.5,
                                   fontSize: 18,
@@ -191,29 +169,6 @@ class _OtpState extends State<Otp> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Username",
-          style: GoogleFonts.montserrat(
-            color: Colors.black87,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        TextFormField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 16,
-        ),
         Text(
           "Phone number",
           style: GoogleFonts.montserrat(

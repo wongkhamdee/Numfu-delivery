@@ -28,7 +28,7 @@ Future main() async {
   await Firebase.initializeApp();
 
   initlalRoute = MyCostant.routeluncher;
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 /*void main() async {
   await Hive.initFlutter();

@@ -1,12 +1,17 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:numfu/screen/Launcher.dart';
 import 'package:numfu/screen/OTP.dart';
 import 'package:numfu/screen/register.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:numfu/widgets/show_image.dart';
 import 'package:numfu/widgets/show_title.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -16,23 +21,12 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-  Future signIn() async {
-    if (formKey.currentState!.validate() == false) {
-    } else {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim());
-    }
-  }
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    phoneController.dispose();
+
     super.dispose();
   }
 
@@ -41,38 +35,247 @@ class _LoginState extends State<Login> {
 
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
   bool statusRedEye = true;
+  bool isButtonActive = false;
+
+  //TextEditingController usernameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  double screenHeight = 0;
+  double screenWidth = 0;
+  double bottom = 0;
+
+  String otpPin = " ";
+  String countryDial = "+66";
+  String verID = " ";
+
+  int screenState = 0;
+
+  Future<void> verifyPhone(String number) async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: number,
+      timeout: const Duration(seconds: 20),
+      verificationCompleted: (PhoneAuthCredential credential) {
+        showSnackBarText("ยืนยันสำเร็จ!");
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        showSnackBarText("ยืนยันล้มเหลว!");
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        showSnackBarText("กำลังส่ง OTP!");
+        verID = verificationId;
+        setState(() {
+          screenState = 1;
+        });
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        showSnackBarText("หมดเวลา!");
+      },
+    );
+  }
+
+  Future<void> verifyOTP() async {
+    await FirebaseAuth.instance
+        .signInWithCredential(
+      PhoneAuthProvider.credential(
+        verificationId: verID,
+        smsCode: otpPin,
+      ),
+    )
+        .whenComplete(() {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const Launcher(),
+        ),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
+    bottom = MediaQuery.of(context).viewInsets.bottom;
     double size = MediaQuery.of(context).size.width;
-    //ประกาศ size ให้ปรับขนาด auto ตามขนาดหน้าจอ
-    return Scaffold(
-        key: scaffoldKey,
-        backgroundColor: Colors.white,
-        body: SafeArea(
-          //padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
+    return WillPopScope(
+      onWillPop: () {
+        setState(() {
+          screenState = 0;
+        });
+        return Future.value(false);
+      },
+      child: Scaffold(
+        body: SizedBox(
+          child: ListView(
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: screenWidth / 15,
+                      right: screenWidth / 15,
+                      top: bottom > 0 ? screenHeight / 15 : 0,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        buildImage(size),
+                        buildAppName(),
+                        buildText(),
+                        screenState == 0 ? stateRegister() : stateOTP(),
+                        GestureDetector(
+                          onTap: () {
+                            if (screenState == 0) {
+                              if (phoneController.text.isEmpty) {
+                                showSnackBarText(
+                                    "เบอร์โทรศัพท์ของคุณยังว่างอยู่!");
+                              } else {
+                                verifyPhone(countryDial + phoneController.text);
+                              }
+                            } else {
+                              if (otpPin.length >= 6) {
+                                verifyOTP();
+                              } else {
+                                showSnackBarText("กรอกรหัส OTP ให้ถูกต้อง!");
+                              }
+                            }
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(top: size * 0.5),
+                            width: size * 0.9,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: MyCostant.primary,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 2,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Center(
+                              child: Text(
+                                "ต่อไป",
+                                style: MyCostant().h5button(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
-          child: GestureDetector(
-            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-            behavior: HitTestBehavior.opaque,
-            child: Form(
-              key: formKey,
-              child: ListView(
-                children: [
-                  buildImage(size),
-                  buildAppName(),
-                  buildText(),
-                  buildEmail(size),
-                  buildPassword(size),
-                  buildRemember(),
-                  buildLogin(size),
-                  buildOR(),
-                  buildRegister(size),
-                ],
-              ),
+  void showSnackBarText(String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
+      ),
+    );
+  }
+
+  Widget stateRegister() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "เบอร์โทรศัพท์",
+        ),
+        IntlPhoneField(
+          style: TextStyle(),
+          controller: phoneController,
+          showCountryFlag: false,
+          showDropdownIcon: false,
+          initialValue: countryDial,
+          onCountryChanged: (country) {
+            setState(() {
+              countryDial = "+" + country.dialCode;
+            });
+          },
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
             ),
           ),
-        ));
+        ),
+      ],
+    );
+  }
+
+  Widget stateOTP() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: "เราเพิ่งส่งรหัสไปที่ ",
+              ),
+              TextSpan(
+                text: countryDial + phoneController.text,
+              ),
+              TextSpan(
+                text: "\nใส่รหัสที่นี่และจะสามารถดำเนินการต่อ!",
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        PinCodeTextField(
+          appContext: context,
+          length: 6,
+          onChanged: (value) {
+            setState(() {
+              otpPin = value;
+            });
+          },
+          pinTheme: PinTheme(
+            inactiveColor: Colors.black26,
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: "ไม่ได้รับรหัส? ",
+              ),
+              WidgetSpan(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      screenState = 0;
+                    });
+                  },
+                  child: Text(
+                    "ส่งรหัสอีกครั้ง",
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   Container buildRemember() {
@@ -125,26 +328,6 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Row buildLogin(double size) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          margin: EdgeInsets.only(top: 16),
-          width: size * 0.9,
-          child: ElevatedButton(
-            style: MyCostant().myButtonStyle(),
-            onPressed: signIn,
-            child: ShowTitle(
-              title: 'เข้าสู่ระบบ',
-              textStyle: MyCostant().h5button(),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   Row buildRegister(double size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -177,7 +360,6 @@ class _LoginState extends State<Login> {
           margin: EdgeInsets.only(top: 40),
           width: size * 0.9,
           child: TextFormField(
-            controller: emailController,
             keyboardType: TextInputType.emailAddress,
             validator: MultiValidator([
               RequiredValidator(errorText: 'กรุณากรอกอีเมลของคุณ'),
@@ -217,7 +399,7 @@ class _LoginState extends State<Login> {
                   errorText: 'รหัสผ่านอย่างน้อยต้องมี 6 ตัวอักษร'),
             ]),
             // controller: passwordController,
-            controller: passwordController,
+
             obscureText: statusRedEye,
             decoration: InputDecoration(
               suffixIcon: IconButton(
@@ -264,7 +446,7 @@ class _LoginState extends State<Login> {
           textStyle: MyCostant().h2Style(),
         ),
         ShowTitle(
-          title: 'ลงชื่อเข้าบัญชีของคุณ',
+          title: 'กรุณากรอกเบอร์โทรศัพท์ของคุณ',
           textStyle: MyCostant().h2Style(),
         ),
       ],
@@ -296,14 +478,4 @@ class _LoginState extends State<Login> {
       ],
     );
   }
-
-  /*Future<Null> checkAuthan() async {
-    await Firebase.initializeApp().then((value) async {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email!, password: password!)
-          .then((value) => Navigator.pushNamedAndRemoveUntil(
-              context, '/Launcher', (route) => false))
-          .catchError((value) => formKey.currentState!.validate() == false);
-    });
-  }*/
 }

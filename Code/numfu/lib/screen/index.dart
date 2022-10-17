@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:numfu/screen/location.dart';
+import 'package:numfu/screen/login.dart';
 import 'package:numfu/screen/promotion.dart';
 import 'package:numfu/screen/wallet.dart';
 import 'package:numfu/utility/my_constant.dart';
@@ -35,7 +36,7 @@ class _IndexState extends State<Index> {
               buildFirstName(size),
               buildSignout(),
               buildPro(),
-              Text('signed in as: ' + user.email!),
+              Text('signed in as: ' + user.phoneNumber!),
               /*StreamBuilder(
                      stream: FirebaseFirestore.instance.collection("restaurant").snapshots(),
                      builder: (context,AsyncSnapshot<QuerySnapshot> snapshot){
@@ -95,6 +96,9 @@ class _IndexState extends State<Index> {
     return MaterialButton(
       onPressed: () {
         FirebaseAuth.instance.signOut();
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return Login();
+        }));
       },
       color: Colors.deepPurple[200],
       child: Text('sign out'),
