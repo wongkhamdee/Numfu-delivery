@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:numfu/screen/OTP2.dart';
 import 'package:numfu/screen/index.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:numfu/widgets/show_title.dart';

@@ -5,7 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:numfu/screen/Launcher.dart';
 import 'package:numfu/screen/OTP.dart';
-import 'package:numfu/screen/register.dart';
+
 import 'package:numfu/utility/my_constant.dart';
 import 'package:numfu/widgets/show_image.dart';
 import 'package:numfu/widgets/show_title.dart';
