@@ -7,9 +7,7 @@ class MyCostant {
 
   // Route
   static String routelogin = '/login';
-  static String routeregister = '/register';
   static String routeOTP = '/OTP';
-  static String routeOTP2 = '/OTP2';
   static String routeforgetpass = '/forgetpass';
   static String routeluncher = '/Launcher';
 

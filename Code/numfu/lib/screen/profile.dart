@@ -7,6 +7,7 @@ import 'package:numfu/screen/promotion.dart';
 import 'package:numfu/screen/wallet.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:numfu/widgets/show_image.dart';
 
 class Profile extends StatefulWidget {
   static const routeName = '/';
@@ -24,6 +25,7 @@ final user = FirebaseAuth.instance.currentUser!;
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
+    double size = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile'),
@@ -32,11 +34,21 @@ class _ProfileState extends State<Profile> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text('ข้อมูลส่วนตัว'),
+          buildImage(size),
           Text('แก้ไขข้อมูล'),
-          Text('ชื่อ'),
-          Text('นามสกุล'),
-          Text('signed in as: ' + user.phoneNumber!),
+          TextFormField(
+            decoration: const InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'ชื่อ',
+            ),
+          ),
+          TextFormField(
+            decoration: const InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'นามสกุล',
+            ),
+          ),
+          Text('หมายเลขโทรศัพท์' + user.phoneNumber!),
           buildSignout(),
         ],
       )),
@@ -55,4 +67,18 @@ class _ProfileState extends State<Profile> {
       child: Text('sign out'),
     );
   }
+}
+
+Row buildImage(double size) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Container(
+          margin: EdgeInsets.only(top: 20),
+          height: size * 0.3,
+          child: ShowImage(
+            path: MyCostant.logo,
+          )),
+    ],
+  );
 }
