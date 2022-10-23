@@ -26,69 +26,20 @@ class _IndexState extends State<Index> {
     double size = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
-        child: Container(
-          child: Column(
-            children: [
-              buildtitle(),
-              //buildtitle2(),
-              buildAdress(),
-              buildFirstName(size),
-              buildSignout(),
-              buildPro(),
-              Text('signed in as: ' + user.phoneNumber!),
-              /*StreamBuilder(
-                     stream: FirebaseFirestore.instance.collection("restaurant").snapshots(),
-                     builder: (context,AsyncSnapshot<QuerySnapshot> snapshot){
-                      if(!snapshot.hasData){
-                        return Center(child: CircularProgressIndicator(),);
-                      }
-                      return ListView(
-                        children: snapshot.data!.docs.map((document){
-                          return Container(child: ListTile(
-                            leading: CircleAvatar(
-                              radius:30,
-                              child: FittedBox(child: Text("ร้าน"))
-                            ),
-                          ),
-                          );
-                        }).toList(),
-                      );
-                     },),*/
-            ],
-          ),
-        ),
-
-        /*child: SingleChildScrollView(
-              child: Obx(
-              () {
-                if (carouselController.isLoading.value) {
-                  return const Center(
-                    child: CarouselLoading(),
-                  );
-                } else {
-                  if (carouselController.carouselItemList.isNotEmpty) {
-                    return CarouselWithIndicator(
-                        data: carouselController.carouselItemList);
-                  } else {
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(Icons.hourglass_empty),
-                          Text("Data not found!"),
-                          Text('signed in as: ' + user.email!),
-                          buildSignout(),
-                        ],
-                      ),
-                    );
-                  }
-                }
-              },
-            )
-                ))*/
-      ),
+          padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
+          child: Container(
+            child: Column(
+              children: [
+                buildtitle(),
+                //buildtitle2(),
+                buildAdress(),
+                buildFirstName(size),
+                buildSignout(),
+                buildPro(),
+                Text('signed in as: ' + user.phoneNumber!),
+              ],
+            ),
+          )),
     );
   }
 
