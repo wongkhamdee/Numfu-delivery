@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:numfu/screen/carousel.dart';
 import 'package:numfu/screen/location.dart';
 import 'package:numfu/screen/login.dart';
 import 'package:numfu/screen/promotion.dart';
@@ -25,15 +26,35 @@ class _IndexState extends State<Index> {
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Numfu Delivery",
+          style: GoogleFonts.khand(textStyle: TextStyle(fontSize: 36)),
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return Index();
+                }));
+              },
+              icon: Icon(
+                Icons.favorite,
+                color: Color.fromARGB(255, 255, 7, 40),
+              ))
+        ],
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
+      backgroundColor: Colors.white,
       body: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: Container(
             child: Column(
               children: [
-                buildtitle(),
-                //buildtitle2(),
                 buildAdress(),
                 buildFirstName(size),
+                Carousel(),
                 buildSignout(),
                 buildPro(),
                 Text('signed in as: ' + user.phoneNumber!),
@@ -74,7 +95,7 @@ class _IndexState extends State<Index> {
       children: [
         Container(
           margin: EdgeInsets.only(top: 20),
-          width: size * 0.7,
+          width: size * 0.80,
           child: TextFormField(
             decoration: InputDecoration(
               labelStyle: MyCostant().h4Style(),
@@ -84,24 +105,11 @@ class _IndexState extends State<Index> {
                   const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: MyCostant.dark, width: 2),
-                  borderRadius: BorderRadius.circular(30)),
+                  borderRadius: BorderRadius.circular(10)),
               focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: MyCostant.light, width: 2),
-                  borderRadius: BorderRadius.circular(30)),
+                  borderRadius: BorderRadius.circular(10)),
             ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 16),
-          width: size * 0.1,
-          child: ElevatedButton.icon(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Index();
-              }));
-            },
-            icon: Icon(Icons.category_rounded),
-            label: Text(""),
           ),
         ),
         Container(
@@ -109,15 +117,15 @@ class _IndexState extends State<Index> {
           width: size * 0.1,
           child: TextFormField(
             decoration: InputDecoration(
-              prefixIcon: Icon(Icons.favorite),
+              prefixIcon: Icon(Icons.list),
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: MyCostant.dark, width: 2),
-                  borderRadius: BorderRadius.circular(30)),
+                  borderRadius: BorderRadius.circular(10)),
               focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: MyCostant.light, width: 2),
-                  borderRadius: BorderRadius.circular(30)),
+                  borderRadius: BorderRadius.circular(10)),
             ),
           ),
         ),
