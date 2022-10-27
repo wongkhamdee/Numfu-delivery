@@ -19,9 +19,10 @@ class _WalletState extends State<Wallet> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
-          'Payment',
-          style: GoogleFonts.khand(textStyle: TextStyle(fontSize: 36)),
+          'กระเป๋าเงิน',
+          style: MyCostant().headStyle(),
         ),
         backgroundColor: Colors.white,
         elevation: 0,

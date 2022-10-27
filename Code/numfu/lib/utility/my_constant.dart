@@ -21,6 +21,7 @@ class MyCostant {
   static Color light = Color(0xffffb257);
   static Color black = Color(0xff000000);
   static Color white = Color(0xffffffff);
+  static Color red = Color(0xffFF3326);
 
   // Style
   TextStyle h1Style() => TextStyle(
@@ -50,6 +51,10 @@ class MyCostant {
         fontSize: 16,
         color: dark,
         fontWeight: FontWeight.normal,
+      );
+  TextStyle headStyle() => TextStyle(
+        fontSize: 36,
+        color: black,
       );
 
   TextStyle h5button() => TextStyle(

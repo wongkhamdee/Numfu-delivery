@@ -28,30 +28,44 @@ class _ProfileState extends State<Profile> {
     double size = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        centerTitle: true,
+        title: Text(
+          'ข้อมูลส่วนตัว',
+          style: MyCostant().headStyle(),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
+      backgroundColor: Colors.white,
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           buildImage(size),
-          Text('แก้ไขข้อมูล'),
-          TextFormField(
-            decoration: const InputDecoration(
-              border: UnderlineInputBorder(),
-              labelText: 'ชื่อ',
-            ),
-          ),
-          TextFormField(
-            decoration: const InputDecoration(
-              border: UnderlineInputBorder(),
-              labelText: 'นามสกุล',
-            ),
-          ),
-          Text('หมายเลขโทรศัพท์' + user.phoneNumber!),
+          buildTextname(),
+          buildedit(),
+          buildFirstName(size),
+          buildLastName(size),
+          buildphone(size),
           buildSignout(),
         ],
       )),
+    );
+  }
+
+  Container buildedit() {
+    return Container(
+        margin: EdgeInsets.only(right: 290),
+        child: Text(
+          'แก้ไขข้อมูล',
+          style: MyCostant().h3Style(),
+        ));
+  }
+
+  Text buildTextname() {
+    return Text(
+      'ชญานิญ สัตติวงษ์',
+      style: MyCostant().h2Style(),
     );
   }
 
@@ -63,8 +77,11 @@ class _ProfileState extends State<Profile> {
           return Login();
         }));
       },
-      color: Colors.deepPurple[200],
-      child: Text('sign out'),
+      color: MyCostant.red,
+      child: Text(
+        'ออกจากระบบ',
+        style: MyCostant().h5button(),
+      ),
     );
   }
 }
@@ -79,6 +96,66 @@ Row buildImage(double size) {
           child: ShowImage(
             path: MyCostant.logo,
           )),
+    ],
+  );
+}
+
+Row buildFirstName(double size) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Container(
+        margin: EdgeInsets.only(top: 20),
+        width: size * 0.9,
+        child: TextFormField(
+          decoration: InputDecoration(
+            labelStyle: MyCostant().h4Style(),
+            labelText: 'ชื่อจริง',
+            hintText: "กรอกชื่อของคุณ",
+            suffixIcon: Icon(Icons.person),
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+Row buildLastName(double size) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Container(
+        margin: EdgeInsets.only(top: 20),
+        width: size * 0.9,
+        child: TextFormField(
+          decoration: InputDecoration(
+            labelStyle: MyCostant().h4Style(),
+            labelText: 'นามสกุล',
+            hintText: "กรอกนามสกุลของคุณ",
+            suffixIcon: Icon(Icons.person),
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+Row buildphone(double size) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Container(
+        margin: EdgeInsets.only(top: 20),
+        width: size * 0.9,
+        child: TextFormField(
+          decoration: InputDecoration(
+            labelStyle: MyCostant().h4Style(),
+            labelText: 'เบอร์โทรศัพท์',
+            hintText: user.phoneNumber!,
+            suffixIcon: Icon(Icons.person),
+          ),
+        ),
+      ),
     ],
   );
 }
