@@ -25,42 +25,52 @@ class _IndexState extends State<Index> {
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Numfu Delivery",
-          style: GoogleFonts.khand(textStyle: TextStyle(fontSize: 36)),
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Numfu Delivery",
+            style: GoogleFonts.khand(textStyle: TextStyle(fontSize: 36)),
+          ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Index();
+                  }));
+                },
+                icon: Icon(
+                  Icons.favorite,
+                  color: Color.fromARGB(255, 255, 7, 40),
+                ))
+          ],
+          backgroundColor: Colors.white,
+          elevation: 0,
         ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Index();
-                }));
-              },
-              icon: Icon(
-                Icons.favorite,
-                color: Color.fromARGB(255, 255, 7, 40),
-              ))
-        ],
         backgroundColor: Colors.white,
-        elevation: 0,
+        body: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+            child: Container(
+              child: Column(
+                children: [
+                  buildAdress(),
+                  buildFirstName(size),
+                  Carousel(),
+                  buildPro(),
+                  Text('ลดสุดคุ้ม 60%'),
+                  Text('ลดสูงสุด 60 บ. ใส่รหัส GGWP'),
+                  buildSignout(),
+                  Text('signed in as: ' + user.phoneNumber!),
+                ],
+              ),
+            )),
       ),
-      backgroundColor: Colors.white,
-      body: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-          child: Container(
-            child: Column(
-              children: [
-                buildAdress(),
-                buildFirstName(size),
-                Carousel(),
-                buildSignout(),
-                buildPro(),
-                Text('signed in as: ' + user.phoneNumber!),
-              ],
-            ),
-          )),
     );
   }
 
@@ -84,8 +94,8 @@ class _IndexState extends State<Index> {
           return promotion();
         }));
       },
-      color: Colors.deepPurple[200],
-      child: Text('promotion'),
+      color: MyCostant.primary,
+      child: Text('คูปองส่วนลดอาหาร                     ดู'),
     );
   }
 
