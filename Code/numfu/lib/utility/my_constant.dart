@@ -62,6 +62,11 @@ class MyCostant {
         color: white,
         fontWeight: FontWeight.normal,
       );
+  TextStyle h6button() => TextStyle(
+        fontSize: 20,
+        color: dark,
+        fontWeight: FontWeight.normal,
+      );
 
   // Button
   ButtonStyle myButtonStyle() => ElevatedButton.styleFrom(

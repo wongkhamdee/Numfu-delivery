@@ -4,7 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:numfu/screen/carousel.dart';
 import 'package:numfu/screen/location.dart';
 import 'package:numfu/screen/login.dart';
+import 'package:numfu/screen/profile.dart';
 import 'package:numfu/screen/promotion.dart';
+import 'package:numfu/screen/res.dart';
 import 'package:numfu/screen/wallet.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,6 +24,33 @@ class Index extends StatefulWidget {
 
 class _IndexState extends State<Index> {
   final user = FirebaseAuth.instance.currentUser!;
+  var res1 = new Card(
+    child: Column(children: <Widget>[
+      Image.asset(
+        'img/1.1.jpg',
+        height: 150,
+        width: 150,
+      )
+    ]),
+  );
+  var res2 = new Card(
+    child: Column(children: <Widget>[
+      Image.asset(
+        'img/1.2.jpg',
+        height: 150,
+        width: 150,
+      )
+    ]),
+  );
+  var res3 = new Card(
+    child: Column(children: <Widget>[
+      Image.asset(
+        'img/1.3.jpg',
+        height: 150,
+        width: 150,
+      )
+    ]),
+  );
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
@@ -65,8 +94,7 @@ class _IndexState extends State<Index> {
                   buildPro(),
                   Text('ลดสุดคุ้ม 60%'),
                   Text('ลดสูงสุด 60 บ. ใส่รหัส GGWP'),
-                  buildSignout(),
-                  Text('signed in as: ' + user.phoneNumber!),
+                  buildRes(res1: res1, res2: res2, res3: res3),
                 ],
               ),
             )),
@@ -153,6 +181,43 @@ class _IndexState extends State<Index> {
             style: GoogleFonts.khand(textStyle: TextStyle(fontSize: 36)),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class buildRes extends StatelessWidget {
+  const buildRes({
+    Key? key,
+    required this.res1,
+    required this.res2,
+    required this.res3,
+  }) : super(key: key);
+
+  final Card res1;
+  final Card res2;
+  final Card res3;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Container(
+          child: InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Res();
+              }));
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Row(
+                children: <Widget>[res1, res2, res3],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
