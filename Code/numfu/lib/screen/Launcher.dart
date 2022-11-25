@@ -52,6 +52,7 @@ class _LauncherState extends State<Launcher> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.orange,
       body: _pageWidget.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: _menuBar,

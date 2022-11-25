@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:numfu/screen/Favorite.dart';
+import 'package:numfu/screen/carousel.dart';
 import 'package:numfu/screen/location.dart';
 import 'package:numfu/screen/login.dart';
+import 'package:numfu/screen/profile.dart';
 import 'package:numfu/screen/promotion.dart';
+import 'package:numfu/screen/res.dart';
 import 'package:numfu/screen/wallet.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,73 +25,80 @@ class Index extends StatefulWidget {
 
 class _IndexState extends State<Index> {
   final user = FirebaseAuth.instance.currentUser!;
+  var res1 = new Card(
+    child: Column(children: <Widget>[
+      Image.asset(
+        'img/1.1.jpg',
+        height: 150,
+        width: 150,
+      )
+    ]),
+  );
+  var res2 = new Card(
+    child: Column(children: <Widget>[
+      Image.asset(
+        'img/1.2.jpg',
+        height: 150,
+        width: 150,
+      )
+    ]),
+  );
+  var res3 = new Card(
+    child: Column(children: <Widget>[
+      Image.asset(
+        'img/1.3.jpg',
+        height: 150,
+        width: 150,
+      )
+    ]),
+  );
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
-        child: Container(
-          child: Column(
-            children: [
-              buildtitle(),
-              //buildtitle2(),
-              buildAdress(),
-              buildFirstName(size),
-              buildSignout(),
-              buildPro(),
-              Text('signed in as: ' + user.phoneNumber!),
-              /*StreamBuilder(
-                     stream: FirebaseFirestore.instance.collection("restaurant").snapshots(),
-                     builder: (context,AsyncSnapshot<QuerySnapshot> snapshot){
-                      if(!snapshot.hasData){
-                        return Center(child: CircularProgressIndicator(),);
-                      }
-                      return ListView(
-                        children: snapshot.data!.docs.map((document){
-                          return Container(child: ListTile(
-                            leading: CircleAvatar(
-                              radius:30,
-                              child: FittedBox(child: Text("ร้าน"))
-                            ),
-                          ),
-                          );
-                        }).toList(),
-                      );
-                     },),*/
-            ],
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Numfu Delivery",
+            style: GoogleFonts.khand(textStyle: TextStyle(fontSize: 36)),
           ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Favorite();
+                  }));
+                },
+                icon: Icon(
+                  Icons.favorite,
+                  color: Color.fromARGB(255, 255, 7, 40),
+                ))
+          ],
+          backgroundColor: Colors.white,
+          elevation: 0,
         ),
-
-        /*child: SingleChildScrollView(
-              child: Obx(
-              () {
-                if (carouselController.isLoading.value) {
-                  return const Center(
-                    child: CarouselLoading(),
-                  );
-                } else {
-                  if (carouselController.carouselItemList.isNotEmpty) {
-                    return CarouselWithIndicator(
-                        data: carouselController.carouselItemList);
-                  } else {
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(Icons.hourglass_empty),
-                          Text("Data not found!"),
-                          Text('signed in as: ' + user.email!),
-                          buildSignout(),
-                        ],
-                      ),
-                    );
-                  }
-                }
-              },
-            )
-                ))*/
+        backgroundColor: Colors.white,
+        body: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+            child: Container(
+              child: Column(
+                children: [
+                  buildAdress(),
+                  buildFirstName(size),
+                  Carousel(),
+                  buildPro(),
+                  Text('ลดสุดคุ้ม 60%'),
+                  Text('ลดสูงสุด 60 บ. ใส่รหัส GGWP'),
+                  buildRes(res1: res1, res2: res2, res3: res3),
+                ],
+              ),
+            )),
       ),
     );
   }
@@ -112,8 +123,8 @@ class _IndexState extends State<Index> {
           return promotion();
         }));
       },
-      color: Colors.deepPurple[200],
-      child: Text('promotion'),
+      color: MyCostant.primary,
+      child: Text('คูปองส่วนลดอาหาร                     ดู'),
     );
   }
 
@@ -123,7 +134,7 @@ class _IndexState extends State<Index> {
       children: [
         Container(
           margin: EdgeInsets.only(top: 20),
-          width: size * 0.7,
+          width: size * 0.80,
           child: TextFormField(
             decoration: InputDecoration(
               labelStyle: MyCostant().h4Style(),
@@ -133,24 +144,11 @@ class _IndexState extends State<Index> {
                   const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: MyCostant.dark, width: 2),
-                  borderRadius: BorderRadius.circular(30)),
+                  borderRadius: BorderRadius.circular(10)),
               focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: MyCostant.light, width: 2),
-                  borderRadius: BorderRadius.circular(30)),
+                  borderRadius: BorderRadius.circular(10)),
             ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 16),
-          width: size * 0.1,
-          child: ElevatedButton.icon(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Index();
-              }));
-            },
-            icon: Icon(Icons.category_rounded),
-            label: Text(""),
           ),
         ),
         Container(
@@ -158,15 +156,15 @@ class _IndexState extends State<Index> {
           width: size * 0.1,
           child: TextFormField(
             decoration: InputDecoration(
-              prefixIcon: Icon(Icons.favorite),
+              prefixIcon: Icon(Icons.list),
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: MyCostant.dark, width: 2),
-                  borderRadius: BorderRadius.circular(30)),
+                  borderRadius: BorderRadius.circular(10)),
               focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: MyCostant.light, width: 2),
-                  borderRadius: BorderRadius.circular(30)),
+                  borderRadius: BorderRadius.circular(10)),
             ),
           ),
         ),
@@ -184,6 +182,43 @@ class _IndexState extends State<Index> {
             style: GoogleFonts.khand(textStyle: TextStyle(fontSize: 36)),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class buildRes extends StatelessWidget {
+  const buildRes({
+    Key? key,
+    required this.res1,
+    required this.res2,
+    required this.res3,
+  }) : super(key: key);
+
+  final Card res1;
+  final Card res2;
+  final Card res3;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Container(
+          child: InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Res();
+              }));
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Row(
+                children: <Widget>[res1, res2, res3],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
