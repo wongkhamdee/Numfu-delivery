@@ -12,5 +12,5 @@
 - [Project Book](https://github.com/wongkhamdee/Numfu-delivery/tree/main/Project%20Book)
 
 ## Project Code
-- [Project Code]([https://github.com/wongkhamdee/Numfu-delivery/tree/main/Code/numful](https://github.com/wongkhamdee/Numfu-delivery/tree/main/Code))
+- [Project Code](https://github.com/wongkhamdee/Numfu-delivery/tree/main/Code/numful](https://github.com/wongkhamdee/Numfu-delivery/tree/main/Code)
 
