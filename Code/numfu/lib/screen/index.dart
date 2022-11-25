@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:numfu/screen/Favorite.dart';
 import 'package:numfu/screen/carousel.dart';
 import 'package:numfu/screen/location.dart';
 import 'package:numfu/screen/login.dart';
@@ -71,7 +72,7 @@ class _IndexState extends State<Index> {
             IconButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Index();
+                    return Favorite();
                   }));
                 },
                 icon: Icon(
