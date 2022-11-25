@@ -1,10 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:numfu/screen/location.dart';
 import 'package:numfu/screen/login.dart';
-import 'package:numfu/screen/promotion.dart';
-import 'package:numfu/screen/wallet.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:numfu/widgets/show_image.dart';
@@ -19,8 +14,6 @@ class Profile extends StatefulWidget {
     return _ProfileState();
   }
 }
-
-final user = FirebaseAuth.instance.currentUser!;
 
 class _ProfileState extends State<Profile> {
   @override
@@ -151,7 +144,6 @@ Row buildphone(double size) {
           decoration: InputDecoration(
             labelStyle: MyCostant().h4Style(),
             labelText: 'เบอร์โทรศัพท์',
-            hintText: user.phoneNumber!,
             suffixIcon: Icon(Icons.person),
           ),
         ),
