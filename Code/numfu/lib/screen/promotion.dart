@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -13,34 +12,66 @@ class promotion extends StatefulWidget {
 
 class _promotionState extends State<promotion> {
   @override
+  Query dbRef = FirebaseDatabase.instance.ref().child('promotion');
+
+  Widget listItem({required Map promotion}) {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
+      height: 110,
+      color: MyCostant.primary,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Proname'),
+          const SizedBox(
+            height: 5,
+          ),
+          Text('Prodetails'),
+          const SizedBox(
+            height: 5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () {},
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.youtube_searched_for,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('promotion'),
+        title: Text('Wallet'),
       ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection("promotion").snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return ListView(
-            children: snapshot.data!.docs.map((document) {
-              return Container(
-                child: ListTile(
-                  leading: CircleAvatar(
-                    radius: 30,
-                    child: FittedBox(child: document["pro_details"]),
-                  ),
-                  title: Text(document["pro_discount"] + document["pro_name"]),
-                  subtitle: Text(document['quantity']),
-                ),
-              );
-            }).toList(),
-          );
-        },
+      body: Container(
+        height: double.infinity,
+        child: FirebaseAnimatedList(
+          query: dbRef,
+          itemBuilder: (BuildContext context, DataSnapshot snapshot,
+              Animation<double> animation, int index) {
+            Map promotion = snapshot.value as Map;
+            promotion['key'] = snapshot.key;
+
+            return listItem(promotion: promotion);
+          },
+        ),
       ),
     );
   }

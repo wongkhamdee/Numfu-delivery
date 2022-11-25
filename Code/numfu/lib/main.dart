@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:numfu/main_page.dart';
 import 'package:numfu/screen/Launcher.dart';
 import 'package:numfu/screen/OTP.dart';
+import 'package:numfu/screen/OTP2.dart';
+import 'package:numfu/screen/forgetpass.dart';
 import 'package:numfu/screen/index.dart';
 import 'package:numfu/screen/login.dart';
-
+import 'package:numfu/screen/register.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,7 +14,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 final Map<String, WidgetBuilder> map = {
   '/login': (BuildContext Context) => Login(),
+  '/register': (BuildContext Context) => Register(),
   '/OTP': (BuildContext Context) => Otp(),
+  '/OTP2': (BuildContext Context) => Otp2(),
+  '/forgetpass': (BuildContext Context) => Forgetpass(),
   '/Launcher': (BuildContext Context) => Launcher(),
 };
 
