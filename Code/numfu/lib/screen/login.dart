@@ -95,81 +95,90 @@ class _LoginState extends State<Login> {
     screenWidth = MediaQuery.of(context).size.width;
     bottom = MediaQuery.of(context).viewInsets.bottom;
     double size = MediaQuery.of(context).size.width;
-    return WillPopScope(
-      onWillPop: () {
-        setState(() {
-          screenState = 0;
-        });
-        return Future.value(false);
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
       },
-      child: Scaffold(
-        body: SizedBox(
-          child: ListView(
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  color: Colors.white,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      left: screenWidth / 15,
-                      right: screenWidth / 15,
-                      top: bottom > 0 ? screenHeight / 15 : 0,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        buildImage(size),
-                        buildAppName(),
-                        buildText(),
-                        screenState == 0 ? stateRegister() : stateOTP(),
-                        GestureDetector(
-                          onTap: () {
-                            if (screenState == 0) {
-                              if (phoneController.text.isEmpty) {
-                                showSnackBarText(
-                                    "เบอร์โทรศัพท์ของคุณยังว่างอยู่!");
+      child: WillPopScope(
+        onWillPop: () {
+          setState(() {
+            screenState = 0;
+          });
+          return Future.value(false);
+        },
+        child: Scaffold(
+          body: SizedBox(
+            child: ListView(
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    color: Colors.white,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: screenWidth / 15,
+                        right: screenWidth / 15,
+                        top: bottom > 0 ? screenHeight / 15 : 0,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          buildImage(size),
+                          buildAppName(),
+                          buildText(),
+                          screenState == 0 ? stateRegister() : stateOTP(),
+                          GestureDetector(
+                            onTap: () {
+                              if (screenState == 0) {
+                                if (phoneController.text.isEmpty) {
+                                  showSnackBarText(
+                                      "เบอร์โทรศัพท์ของคุณยังว่างอยู่!");
+                                } else {
+                                  verifyPhone(
+                                      countryDial + phoneController.text);
+                                }
                               } else {
-                                verifyPhone(countryDial + phoneController.text);
+                                if (otpPin.length >= 6) {
+                                  verifyOTP();
+                                } else {
+                                  showSnackBarText("กรอกรหัส OTP ให้ถูกต้อง!");
+                                }
                               }
-                            } else {
-                              if (otpPin.length >= 6) {
-                                verifyOTP();
-                              } else {
-                                showSnackBarText("กรอกรหัส OTP ให้ถูกต้อง!");
-                              }
-                            }
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(top: size * 0.5),
-                            width: size * 0.9,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: MyCostant.primary,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 2,
-                                  offset: Offset(0, 3),
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(top: size * 0.5),
+                              width: size * 0.9,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: MyCostant.primary,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 1,
+                                    blurRadius: 2,
+                                    offset: Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "ต่อไป",
+                                  style: MyCostant().h5button(),
                                 ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                "ต่อไป",
-                                style: MyCostant().h5button(),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -241,6 +250,7 @@ class _LoginState extends State<Login> {
         PinCodeTextField(
           appContext: context,
           length: 6,
+          keyboardType: TextInputType.number,
           onChanged: (value) {
             setState(() {
               otpPin = value;
@@ -266,8 +276,10 @@ class _LoginState extends State<Login> {
                       screenState = 0;
                     });
                   },
-                  child: Text(
-                    "ส่งรหัสอีกครั้ง",
+                  child: Container(
+                    child: Text(
+                      "ยังไม่ได้รับรหัส? " + "ส่งอีกครั้ง",
+                    ),
                   ),
                 ),
               ),

@@ -47,6 +47,7 @@ dependencies:
   intl_phone_field: ^3.1.0
   firebase_database: ^9.1.7
   pin_code_fields: ^7.4.0
+  carousel_slider: ^4.1.1
 
 
 dev_dependencies:
@@ -77,7 +78,7 @@ flutter:
   # the material Icons class.
     uses-material-design : true
     assets:
-    - img/
+        - img/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
