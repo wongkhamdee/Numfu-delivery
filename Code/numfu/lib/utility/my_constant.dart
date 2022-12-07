@@ -30,7 +30,6 @@ class MyCostant {
         fontSize: 36,
         color: black,
         fontWeight: FontWeight.normal,
-        fontFamily: GoogleFonts.khand().fontFamily,
       );
 
   TextStyle h1tStyle() => TextStyle(
@@ -51,6 +50,11 @@ class MyCostant {
       );
   TextStyle h4Style() => TextStyle(
         fontSize: 16,
+        color: dark,
+        fontWeight: FontWeight.normal,
+      );
+  TextStyle h44Style() => TextStyle(
+        fontSize: 18,
         color: dark,
         fontWeight: FontWeight.normal,
       );

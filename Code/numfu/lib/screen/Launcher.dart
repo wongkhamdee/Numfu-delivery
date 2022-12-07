@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:numfu/screen/Test.dart';
+import 'package:numfu/screen/feedback.dart';
 import 'package:numfu/screen/wallet.dart';
 import 'package:numfu/screen/history.dart';
 import 'package:numfu/screen/index.dart';
@@ -23,6 +25,7 @@ class _LauncherState extends State<Launcher> {
     const Wallet(),
     const History(),
     const Profile(),
+    const Test(),
   ];
   final List<BottomNavigationBarItem> _menuBar = <BottomNavigationBarItem>[
     BottomNavigationBarItem(
@@ -40,6 +43,10 @@ class _LauncherState extends State<Launcher> {
     BottomNavigationBarItem(
       icon: Icon(Icons.person),
       label: 'Profile',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.person),
+      label: 'Test',
     ),
   ];
 

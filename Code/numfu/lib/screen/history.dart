@@ -26,47 +26,61 @@ class _HistoryState extends State<History> {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          buildMywallet(),
-          buildEnter(size: size),
-          Text('สปาเก็ตตี้ผัดขี้เมา'),
-          Text('สปาเก็ตตี้คาโบนาร่า'),
-          Text('สปาเก็ตตี้ไก่ย่างพริกไทยทำ'),
-        ],
-      )),
+      backgroundColor: Colors.white,
+      body: Padding(
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          child: ListView(
+            children: <Widget>[
+              buildBox(),
+              SizedBox(height: 10),
+              BuildMenu(),
+              buildEnter(size: size),
+              SizedBox(height: 30),
+              buildBox(),
+              SizedBox(height: 10),
+              buildBox(),
+              SizedBox(height: 10),
+              buildBox(),
+            ],
+          )),
     );
   }
-}
 
-class buildMywallet extends StatelessWidget {
-  const buildMywallet({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 110,
-      color: MyCostant.dark,
-      child: Column(
-        children: <Widget>[
-          /*Icon(
-            Icons.location_history,
-            color: MyCostant.light,
-          ),*/
-          Text(
-            'Spaghetti Nania',
-            style: TextStyle(
-                fontSize: 35, color: Color.fromARGB(255, 255, 255, 255)),
-          ),
-          Text('17 ก.ย. 2565 - 10.30 น.'),
-          Text('จัดส่งสำเร็จ'),
-        ],
-      ),
+  Column BuildMenu() {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Text(
+              'สปาเก็ตตี้ผัดขี้เมา',
+              style: TextStyle(fontSize: 18),
+            ),
+            SizedBox(width: 50),
+            Text('120'),
+          ],
+        ),
+        SizedBox(width: 50),
+        Row(
+          children: [
+            Text(
+              'สปาเก็ตตี้คาโบนาร่า',
+              style: TextStyle(fontSize: 18),
+            ),
+            SizedBox(width: 50),
+            Text('120'),
+          ],
+        ),
+        Row(
+          children: [
+            Text(
+              'สปาเก็ตตี้ไก่ย่างพริกไทยทำ',
+              style: TextStyle(fontSize: 18),
+            ),
+            SizedBox(width: 50),
+            Text('120'),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -105,4 +119,65 @@ class buildEnter extends StatelessWidget {
       ),
     );
   }
+}
+
+Container buildBox() {
+  return Container(
+    width: 350,
+    height: 140,
+    decoration: const BoxDecoration(
+      color: Color(0xF3F3F3),
+      borderRadius: BorderRadius.all(Radius.circular(15)),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(0),
+      child: Row(
+        children: [
+          // part picture
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                width: 140,
+                height: 140,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: const DecorationImage(
+                    image: AssetImage("img/4.jpg"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(width: 15),
+
+          // part data
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Spaghetti Nania',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              Row(
+                children: const [
+                  Text("17 ก.ย. 2565 - 10.30 น.'",
+                      style: TextStyle(fontSize: 18)),
+                  SizedBox(width: 8),
+                ],
+              ),
+              Row(
+                children: const [
+                  SizedBox(width: 10),
+                  Text("จัดส่งสำเร็จ", style: TextStyle(fontSize: 18)),
+                ],
+              ),
+            ],
+          )
+        ],
+      ),
+    ),
+  );
 }

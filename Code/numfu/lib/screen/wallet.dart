@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:numfu/screen/index.dart';
+import 'package:numfu/screen/success.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -28,8 +29,9 @@ class _WalletState extends State<Wallet> {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
+      backgroundColor: Colors.white,
       body: Center(
-          child: Column(
+          child: ListView(
         children: <Widget>[
           buildMywallet(),
           Text(
@@ -38,10 +40,22 @@ class _WalletState extends State<Wallet> {
           ),
           buildTopup(size),
           numtop(size: size),
-          buildEnter(size: size),
+          buildNext(context, size),
           Text(
             'ประวัติล่าสุด',
             style: MyCostant().h3Style(),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+            child: buildHis(),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+            child: buildHis(),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+            child: buildHis(),
           ),
         ],
       )),
@@ -130,22 +144,19 @@ class numtop extends StatelessWidget {
   }
 }
 
-class buildEnter extends StatelessWidget {
-  const buildEnter({
-    Key? key,
-    required this.size,
-  }) : super(key: key);
-
-  final double size;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: size * 0.1),
+GestureDetector buildNext(BuildContext context, double size) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return success();
+      }));
+    },
+    child: Container(
+      margin: EdgeInsets.only(top: 50),
       width: size * 0.9,
       height: 40,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(30),
         color: MyCostant.primary,
         boxShadow: [
           BoxShadow(
@@ -162,8 +173,8 @@ class buildEnter extends StatelessWidget {
           style: MyCostant().h5button(),
         ),
       ),
-    );
-  }
+    ),
+  );
 }
 
 class buildMywallet extends StatelessWidget {
@@ -211,5 +222,59 @@ Row buildTopup(double size) {
         ),
       ),
     ],
+  );
+}
+
+Container buildHis() {
+  return Container(
+    width: 350,
+    height: 100,
+    decoration: const BoxDecoration(
+      color: Color.fromARGB(255, 255, 255, 255),
+      border: Border(bottom: BorderSide(width: 1)),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(0),
+      child: Row(
+        children: [
+          // part picture
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(1000),
+                  image: const DecorationImage(
+                    image: AssetImage("img/4.jpg"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(width: 15),
+
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'ชำระค่าอาหาร   -120 บาท',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              Row(
+                children: const [
+                  Text("ข้าวมันไก่ป้าแต๋ว เกกี 4",
+                      style: TextStyle(fontSize: 18)),
+                  Text("      21 สิงหา", style: TextStyle(fontSize: 18)),
+                ],
+              ),
+            ],
+          )
+        ],
+      ),
+    ),
   );
 }

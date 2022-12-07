@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:numfu/screen/Launcher.dart';
 import 'package:numfu/screen/index.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:numfu/widgets/show_title.dart';
@@ -144,7 +145,7 @@ class _Select_aState extends State<Select_a> {
               if (formKey.currentState!.validate() == false) {
               } else {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Index();
+                  return Launcher();
                 }));
               }
             },

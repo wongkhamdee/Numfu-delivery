@@ -8,6 +8,7 @@ import 'package:numfu/screen/login.dart';
 import 'package:numfu/screen/profile.dart';
 import 'package:numfu/screen/promotion.dart';
 import 'package:numfu/screen/res.dart';
+import 'package:numfu/screen/select_address.dart';
 import 'package:numfu/screen/wallet.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,7 +25,7 @@ class Index extends StatefulWidget {
 }
 
 class _IndexState extends State<Index> {
-  final user = FirebaseAuth.instance.currentUser!;
+  /*final user = FirebaseAuth.instance.currentUser!;*/
   var res1 = new Card(
     child: Column(children: <Widget>[
       Image.asset(
@@ -87,7 +88,7 @@ class _IndexState extends State<Index> {
         body: Padding(
             padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
             child: Container(
-              child: Column(
+              child: ListView(
                 children: [
                   buildAdress(),
                   buildFirstName(size),

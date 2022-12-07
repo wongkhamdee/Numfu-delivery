@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:numfu/screen/index.dart';
+import 'package:numfu/screen/menu.dart';
 import 'package:numfu/screen/promotion.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,7 +24,8 @@ class _ResState extends State<Res> {
         height: 150,
         width: 150,
       ),
-      Text('ข้าวมันไก่ต้ม')
+      Text('ข้าวมันไก่ต้ม'),
+      Text('45'),
     ]),
   );
   var res2 = new Card(
@@ -33,7 +35,8 @@ class _ResState extends State<Res> {
         height: 150,
         width: 150,
       ),
-      Text('ข้าวมันไก่ทอด')
+      Text('ข้าวมันไก่ทอด1'),
+      Text('45'),
     ]),
   );
   var res3 = new Card(
@@ -81,8 +84,8 @@ class _ResState extends State<Res> {
         children: [
           buildBanner(),
           buildPro(),
-          //buildRes(res1: res1, res2: res2, res3: res3),
-          Container(
+          buildRes(res1: res1, res2: res2, res3: res3),
+          /*Container(
             child: Row(
               children: <Widget>[res1, res2],
             ),
@@ -91,7 +94,7 @@ class _ResState extends State<Res> {
             child: Row(
               children: <Widget>[res3, res2],
             ),
-          ),
+          ),*/
         ],
       )),
     );
@@ -170,18 +173,26 @@ class buildRes extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Container(
-          child: InkWell(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Res();
-              }));
-            },
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: Row(
-                children: <Widget>[res1, Text('as')],
+          child: Column(
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Menu();
+                  }));
+                },
+                child: Column(
+                  children: [
+                    Row(
+                      children: <Widget>[res1, res2],
+                    ),
+                    Row(
+                      children: <Widget>[res1, res2],
+                    ),
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),

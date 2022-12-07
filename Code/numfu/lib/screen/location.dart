@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:numfu/screen/select_address.dart';
 import 'package:numfu/utility/my_dialog.dart';
 import 'package:numfu/widgets/show_progress.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:numfu/utility/my_constant.dart';
+import 'package:numfu/widgets/show_title.dart';
 
 class Location extends StatefulWidget {
   const Location({Key? key}) : super(key: key);
@@ -14,7 +17,7 @@ class Location extends StatefulWidget {
 
 class _LocationState extends State<Location> {
   double? lat, lng;
-  final user = FirebaseAuth.instance.currentUser!;
+  /*final user = FirebaseAuth.instance.currentUser!;*/
   @override
   void initState() {
     super.initState();
@@ -84,6 +87,7 @@ class _LocationState extends State<Location> {
           child: ListView(
             children: [
               buildMap(),
+              buildEnter(size: size),
             ],
           )),
     );
@@ -111,5 +115,39 @@ class _LocationState extends State<Location> {
                 onMapCreated: (controller) {},
                 markers: setMarker(),
               ));
+  }
+}
+
+class buildEnter extends StatelessWidget {
+  const buildEnter({
+    Key? key,
+    required this.size,
+  }) : super(key: key);
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 16),
+          width: size * 0.9,
+          child: ElevatedButton(
+            style: MyCostant().myButtonStyle(),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Select_a();
+              }));
+            },
+            child: ShowTitle(
+              title: 'เพิ่มที่อยู่',
+              textStyle: MyCostant().h5button(),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

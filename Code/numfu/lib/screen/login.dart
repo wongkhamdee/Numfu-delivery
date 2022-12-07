@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:numfu/screen/Launcher.dart';
 import 'package:numfu/screen/OTP.dart';
+import 'package:numfu/screen/index.dart';
 
 import 'package:numfu/utility/my_constant.dart';
 import 'package:numfu/widgets/show_image.dart';
@@ -130,48 +131,7 @@ class _LoginState extends State<Login> {
                           buildAppName(),
                           buildText(),
                           screenState == 0 ? stateRegister() : stateOTP(),
-                          GestureDetector(
-                            onTap: () {
-                              if (screenState == 0) {
-                                if (phoneController.text.isEmpty) {
-                                  showSnackBarText(
-                                      "เบอร์โทรศัพท์ของคุณยังว่างอยู่!");
-                                } else {
-                                  verifyPhone(
-                                      countryDial + phoneController.text);
-                                }
-                              } else {
-                                if (otpPin.length >= 6) {
-                                  verifyOTP();
-                                } else {
-                                  showSnackBarText("กรอกรหัส OTP ให้ถูกต้อง!");
-                                }
-                              }
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(top: size * 0.5),
-                              width: size * 0.9,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: MyCostant.primary,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 1,
-                                    blurRadius: 2,
-                                    offset: Offset(0, 3),
-                                  ),
-                                ],
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "ต่อไป",
-                                  style: MyCostant().h5button(),
-                                ),
-                              ),
-                            ),
-                          ),
+                          buildNext(context, size),
                         ],
                       ),
                     ),
@@ -179,6 +139,56 @@ class _LoginState extends State<Login> {
                 )
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  GestureDetector buildNext(BuildContext context, double size) {
+    return GestureDetector(
+      /*onTap: () {
+                            if (screenState == 0) {
+                              if (phoneController.text.isEmpty) {
+                                showSnackBarText(
+                                    "เบอร์โทรศัพท์ของคุณยังว่างอยู่!");
+                              } else {
+                                verifyPhone(
+                                    countryDial + phoneController.text);
+                              }
+                            } else {
+                              if (otpPin.length >= 6) {
+                                verifyOTP();
+                              } else {
+                                showSnackBarText("กรอกรหัส OTP ให้ถูกต้อง!");
+                              }
+                            }
+                          },*/
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return Launcher();
+        }));
+      },
+      child: Container(
+        margin: EdgeInsets.only(top: size * 0.5),
+        width: size * 0.9,
+        height: 40,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: MyCostant.primary,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 2,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Text(
+            "ต่อไป",
+            style: MyCostant().h5button(),
           ),
         ),
       ),
