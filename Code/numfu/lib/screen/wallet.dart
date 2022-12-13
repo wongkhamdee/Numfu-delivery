@@ -16,11 +16,13 @@ class Wallet extends StatefulWidget {
 }
 
 class _WalletState extends State<Wallet> {
+  int price = 0;
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text(
           'กระเป๋าเงิน',
@@ -30,35 +32,39 @@ class _WalletState extends State<Wallet> {
         elevation: 0,
       ),
       backgroundColor: Colors.white,
-      body: Center(
+      body: Padding(
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: ListView(
-        children: <Widget>[
-          buildMywallet(),
-          Text(
-            'ระบุจำนวนเงิน (THB)',
-            style: MyCostant().h3Style(),
-          ),
-          buildTopup(size),
-          numtop(size: size),
-          buildNext(context, size),
-          Text(
-            'ประวัติล่าสุด',
-            style: MyCostant().h3Style(),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-            child: buildHis(),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-            child: buildHis(),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-            child: buildHis(),
-          ),
-        ],
-      )),
+            children: <Widget>[
+              buildMywallet(),
+              Text(
+                'ระบุจำนวนเงิน (THB)',
+                style: MyCostant().h2Style(),
+              ),
+              buildTopup(size),
+              numtop(size: size),
+              buildNext(context, size),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                '  ประวัติล่าสุด',
+                style: MyCostant().h2Style(),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: buildHis(),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: buildHis2(),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: buildHis(),
+              ),
+            ],
+          )),
     );
   }
 }
@@ -76,11 +82,11 @@ class numtop extends StatelessWidget {
     return Row(
       children: [
         Container(
-          margin: EdgeInsets.only(top: size * 0.1),
+          margin: EdgeInsets.only(top: size * 0.1, left: 15),
           width: size * 0.2,
           height: 40,
           decoration: BoxDecoration(
-            border: Border.all(color: MyCostant.dark),
+            border: Border.all(color: MyCostant.dark, width: 2),
             borderRadius: BorderRadius.circular(20),
             color: MyCostant.white,
           ),
@@ -91,12 +97,13 @@ class numtop extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(width: 10),
         Container(
           margin: EdgeInsets.only(top: size * 0.1),
           width: size * 0.2,
           height: 40,
           decoration: BoxDecoration(
-            border: Border.all(color: MyCostant.dark),
+            border: Border.all(color: MyCostant.dark, width: 2),
             borderRadius: BorderRadius.circular(20),
             color: MyCostant.white,
           ),
@@ -107,12 +114,13 @@ class numtop extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(width: 10),
         Container(
           margin: EdgeInsets.only(top: size * 0.1),
           width: size * 0.2,
           height: 40,
           decoration: BoxDecoration(
-            border: Border.all(color: MyCostant.dark),
+            border: Border.all(color: MyCostant.dark, width: 2),
             borderRadius: BorderRadius.circular(20),
             color: MyCostant.white,
           ),
@@ -123,12 +131,13 @@ class numtop extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(width: 10),
         Container(
           margin: EdgeInsets.only(top: size * 0.1),
           width: size * 0.2,
           height: 40,
           decoration: BoxDecoration(
-            border: Border.all(color: MyCostant.dark),
+            border: Border.all(color: MyCostant.dark, width: 2),
             borderRadius: BorderRadius.circular(20),
             color: MyCostant.white,
           ),
@@ -195,7 +204,12 @@ class buildMywallet extends StatelessWidget {
             color: MyCostant.light,
           ),*/
           Text(
-            'ยอดเงินคงเหลือ',
+            ' ยอดเงินคงเหลือ',
+            style: TextStyle(
+                fontSize: 35, color: Color.fromARGB(255, 255, 255, 255)),
+          ),
+          Text(
+            '     200 บาท',
             style: TextStyle(
                 fontSize: 35, color: Color.fromARGB(255, 255, 255, 255)),
           ),
@@ -217,6 +231,7 @@ Row buildTopup(double size) {
             labelStyle: MyCostant().h4Style(),
             labelText: 'ใส่จำนวนเงิน',
             hintText: "ใส่จำนวนเงินที่ต้องการเติม..",
+
             //suffixIcon: Icon(Icons.person),
           ),
         ),
@@ -261,14 +276,74 @@ Container buildHis() {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'ชำระค่าอาหาร   -120 บาท',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                'ชำระค่าอาหาร                   -120 บาท',
+                style: TextStyle(fontSize: 18, color: Color(0xff000000)),
               ),
               Row(
                 children: const [
                   Text("ข้าวมันไก่ป้าแต๋ว เกกี 4",
                       style: TextStyle(fontSize: 18)),
-                  Text("      21 สิงหา", style: TextStyle(fontSize: 18)),
+                  Text(
+                    "           21 สิงหา",
+                    style: TextStyle(fontSize: 18, color: Color(0xff525252)),
+                  ),
+                ],
+              ),
+            ],
+          )
+        ],
+      ),
+    ),
+  );
+}
+
+Container buildHis2() {
+  return Container(
+    width: 350,
+    height: 100,
+    decoration: const BoxDecoration(
+      color: Color.fromARGB(255, 255, 255, 255),
+      border: Border(bottom: BorderSide(width: 1)),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(0),
+      child: Row(
+        children: [
+          // part picture
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(1000),
+                  image: const DecorationImage(
+                    image: AssetImage("img/3.jpg"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(width: 15),
+
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'ชำระค่าอาหาร                   -200 บาท',
+                style: TextStyle(fontSize: 18, color: Color(0xff000000)),
+              ),
+              Row(
+                children: const [
+                  Text("ข้าวมันไก่ป้าแต๋ว เกกี 4",
+                      style: TextStyle(fontSize: 18)),
+                  Text(
+                    "           21 สิงหา",
+                    style: TextStyle(fontSize: 18, color: Color(0xff525252)),
+                  ),
                 ],
               ),
             ],

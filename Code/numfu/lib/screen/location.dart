@@ -104,7 +104,7 @@ class _LocationState extends State<Location> {
   Container buildMap() {
     return Container(
         width: double.infinity,
-        height: 600,
+        height: 650,
         child: lat == null
             ? ShowProgress()
             : GoogleMap(

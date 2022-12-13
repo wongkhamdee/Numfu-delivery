@@ -18,7 +18,11 @@ class _Select_aState extends State<Select_a> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('เพิ่มที่อยู่'),
+        centerTitle: true,
+        title: Text(
+          'เพิ่มที่อยู่',
+          style: MyCostant().headStyle(),
+        ),
         leading: IconButton(
             icon: Icon(
               Icons.navigate_before,
@@ -38,17 +42,50 @@ class _Select_aState extends State<Select_a> {
           child: ListView(
             //padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
             children: [
-              buildtext('ชื่อที่อยู่*'),
+              buildtext('ชื่อสถานที่*'),
+              buildCate(size: size),
               buildAdressName(size),
+              SizedBox(
+                height: 25,
+              ),
               buildtext('ที่อยู่*'),
+              buildMap(),
+              SizedBox(
+                height: 25,
+              ),
               buildtext('รายละเอียดที่อยู่(ถ้ามี)'),
               buildDetails(size),
+              SizedBox(
+                height: 25,
+              ),
               buildtext2('**สามารถบันทึกได้สูงสุด 5 สถานที่**'),
               buildSave(size),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Padding buildMap() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+      child: Card(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+              color: Color(0xff525252),
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: TextField(
+              maxLines: 6, //or null
+              decoration:
+                  InputDecoration.collapsed(hintText: "ใส่ข้อเสนอแนะของคุณ"),
+            ),
+          )),
     );
   }
 
@@ -72,7 +109,7 @@ class _Select_aState extends State<Select_a> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ShowTitle(title: title2, textStyle: MyCostant().h3Style()),
+          ShowTitle(title: title2, textStyle: MyCostant().h3_1Style()),
         ],
       ),
     );
@@ -94,10 +131,10 @@ class _Select_aState extends State<Select_a> {
                   const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: MyCostant.dark, width: 2),
-                  borderRadius: BorderRadius.circular(30)),
+                  borderRadius: BorderRadius.circular(10)),
               focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: MyCostant.light, width: 2),
-                  borderRadius: BorderRadius.circular(30)),
+                  borderRadius: BorderRadius.circular(10)),
             ),
           ),
         ),
@@ -110,7 +147,7 @@ class _Select_aState extends State<Select_a> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: 10),
           width: size * 0.9,
           child: TextFormField(
             decoration: InputDecoration(
@@ -120,10 +157,10 @@ class _Select_aState extends State<Select_a> {
                   const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: MyCostant.dark, width: 2),
-                  borderRadius: BorderRadius.circular(30)),
+                  borderRadius: BorderRadius.circular(10)),
               focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: MyCostant.light, width: 2),
-                  borderRadius: BorderRadius.circular(30)),
+                  borderRadius: BorderRadius.circular(10)),
             ),
           ),
         ),
@@ -136,7 +173,7 @@ class _Select_aState extends State<Select_a> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 16),
+          margin: EdgeInsets.only(top: 5),
           width: size * 0.9,
           child: ElevatedButton(
             style: MyCostant().myButtonStyle(),
@@ -152,6 +189,62 @@ class _Select_aState extends State<Select_a> {
             child: ShowTitle(
               title: 'บันทึก',
               textStyle: MyCostant().h5button(),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class buildCate extends StatelessWidget {
+  const buildCate({
+    Key? key,
+    required this.size,
+  }) : super(key: key);
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          margin: EdgeInsets.only(left: 20, top: 10),
+          width: size * 0.2,
+          height: 40,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: MyCostant.dark,
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(20),
+            color: MyCostant.dark2,
+          ),
+          child: Center(
+            child: Text(
+              "บ้าน",
+              style: MyCostant().h6_2button(),
+            ),
+          ),
+        ),
+        SizedBox(width: 10),
+        Container(
+          margin: EdgeInsets.only(top: 10),
+          width: size * 0.2,
+          height: 40,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: MyCostant.dark,
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(20),
+            color: MyCostant.dark2,
+          ),
+          child: Center(
+            child: Text(
+              "ที่ทำงาน",
+              style: MyCostant().h6_2button(),
             ),
           ),
         ),

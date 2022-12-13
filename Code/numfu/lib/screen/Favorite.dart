@@ -9,36 +9,6 @@ class Favorite extends StatefulWidget {
 }
 
 class _FavoriteState extends State<Favorite> {
-  var res1 = new Card(
-    child: Row(children: <Widget>[
-      Image.asset(
-        'img/1.1.jpg',
-        height: 150,
-        width: 150,
-      ),
-      Text('ข้าวมันไก่ต้ม')
-    ]),
-  );
-  var res2 = new Card(
-    child: Row(children: <Widget>[
-      Image.asset(
-        'img/1.2.jpg',
-        height: 150,
-        width: 150,
-      ),
-      Text('ข้าวมันไก่ทอด')
-    ]),
-  );
-  var res3 = new Card(
-    child: Column(children: <Widget>[
-      Image.asset(
-        'img/1.3.jpg',
-        height: 150,
-        width: 150,
-      ),
-      Text('ข้าวมันไก่ย่าง')
-    ]),
-  );
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
@@ -54,36 +24,31 @@ class _FavoriteState extends State<Favorite> {
       ),
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(35),
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(
-              height: 0,
-            ),
-            buildBox(),
-            buildBox(),
-            buildBox(),
-            const SizedBox(height: 0),
+            buildBox1(),
+            buildDivider(),
+            buildBox2(),
+            buildDivider(),
           ],
         ),
       ),
     );
   }
 
-  Container buildBox() {
+  Container buildBox1() {
     return Container(
       width: 350,
-      height: 175,
+      height: 120,
       decoration: const BoxDecoration(
         color: Color.fromARGB(255, 255, 255, 255),
         borderRadius: BorderRadius.all(Radius.circular(15)),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(0),
         child: Row(
           children: [
-            // part picture
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -102,19 +67,14 @@ class _FavoriteState extends State<Favorite> {
               ],
             ),
             const SizedBox(width: 15),
-
-            // part data
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // name
                 const Text(
                   'ข้าวมันไก่ป้าแต๋ว',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-
-                // email
                 Row(
                   children: const [
                     Text("10 นาที 0.8 กม. ", style: TextStyle(fontSize: 18)),
@@ -123,13 +83,11 @@ class _FavoriteState extends State<Favorite> {
                     Text("4.6", style: TextStyle(fontSize: 18)),
                   ],
                 ),
-
-                // phone
                 Row(
                   children: const [
                     Icon(Icons.delivery_dining),
                     SizedBox(width: 10),
-                    Text("15 นาที", style: TextStyle(fontSize: 18)),
+                    Text("10 บาท", style: TextStyle(fontSize: 18)),
                   ],
                 ),
               ],
@@ -137,6 +95,77 @@ class _FavoriteState extends State<Favorite> {
           ],
         ),
       ),
+    );
+  }
+
+  Container buildBox2() {
+    return Container(
+      width: 350,
+      height: 120,
+      decoration: const BoxDecoration(
+        color: Color.fromARGB(255, 255, 255, 255),
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(0),
+        child: Row(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: const DecorationImage(
+                      image: AssetImage("img/1.2.jpg"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(width: 15),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'ก๋วยเตี๋ยวประตูหลัง',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  children: const [
+                    Text("18 นาที 1.2 กม. ", style: TextStyle(fontSize: 18)),
+                    Icon(Icons.star),
+                    SizedBox(width: 8),
+                    Text("4.8", style: TextStyle(fontSize: 18)),
+                  ],
+                ),
+                Row(
+                  children: const [
+                    Icon(Icons.delivery_dining),
+                    SizedBox(width: 10),
+                    Text("15 บาท", style: TextStyle(fontSize: 18)),
+                  ],
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Divider buildDivider() {
+    return const Divider(
+      height: 40,
+      thickness: 3,
+      indent: 10,
+      endIndent: 30,
+      color: Color.fromARGB(255, 224, 224, 224),
     );
   }
 }

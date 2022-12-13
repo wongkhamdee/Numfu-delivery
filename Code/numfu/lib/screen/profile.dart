@@ -21,6 +21,7 @@ class _ProfileState extends State<Profile> {
     double size = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text(
           'ข้อมูลส่วนตัว',
@@ -72,7 +73,7 @@ class _ProfileState extends State<Profile> {
       },
       color: MyCostant.red,
       child: Text(
-        'ออกจากระบบ',
+        '                    ออกจากระบบ                    ',
         style: MyCostant().h5button(),
       ),
     );
@@ -102,6 +103,10 @@ Row buildFirstName(double size) {
         width: size * 0.9,
         child: TextFormField(
           decoration: InputDecoration(
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  width: 2, color: Color.fromARGB(255, 102, 102, 102)),
+            ),
             labelStyle: MyCostant().h4Style(),
             labelText: 'ชื่อจริง',
             hintText: "กรอกชื่อของคุณ",
@@ -122,6 +127,10 @@ Row buildLastName(double size) {
         width: size * 0.9,
         child: TextFormField(
           decoration: InputDecoration(
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  width: 2, color: Color.fromARGB(255, 102, 102, 102)),
+            ),
             labelStyle: MyCostant().h4Style(),
             labelText: 'นามสกุล',
             hintText: "กรอกนามสกุลของคุณ",
@@ -142,6 +151,10 @@ Row buildphone(double size) {
         width: size * 0.9,
         child: TextFormField(
           decoration: InputDecoration(
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  width: 2, color: Color.fromARGB(255, 102, 102, 102)),
+            ),
             labelStyle: MyCostant().h4Style(),
             labelText: 'เบอร์โทรศัพท์',
             suffixIcon: Icon(Icons.person),

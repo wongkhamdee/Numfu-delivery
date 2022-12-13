@@ -53,6 +53,7 @@ class _IndexState extends State<Index> {
       )
     ]),
   );
+
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
@@ -65,6 +66,7 @@ class _IndexState extends State<Index> {
       },
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text(
             "Numfu Delivery",
             style: GoogleFonts.khand(textStyle: TextStyle(fontSize: 36)),
@@ -92,10 +94,19 @@ class _IndexState extends State<Index> {
                 children: [
                   buildAdress(),
                   buildFirstName(size),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Carousel(),
                   buildPro(),
-                  Text('ลดสุดคุ้ม 60%'),
-                  Text('ลดสูงสุด 60 บ. ใส่รหัส GGWP'),
+                  Text(
+                    'ลดสุดคุ้ม 60%',
+                    style: MyCostant().h2Style(),
+                  ),
+                  Text(
+                    'ลดสูงสุด 60 บ. ใส่รหัส GGWP',
+                    style: MyCostant().h3Style(),
+                  ),
                   buildRes(res1: res1, res2: res2, res3: res3),
                 ],
               ),
@@ -124,8 +135,11 @@ class _IndexState extends State<Index> {
           return promotion();
         }));
       },
-      color: MyCostant.primary,
-      child: Text('คูปองส่วนลดอาหาร                     ดู'),
+      color: MyCostant.light,
+      child: Text(
+        'คูปองส่วนลดอาหาร                                 ดู',
+        style: MyCostant().h7button(),
+      ),
     );
   }
 
@@ -135,7 +149,7 @@ class _IndexState extends State<Index> {
       children: [
         Container(
           margin: EdgeInsets.only(top: 20),
-          width: size * 0.80,
+          width: size * 0.82,
           child: TextFormField(
             decoration: InputDecoration(
               labelStyle: MyCostant().h4Style(),
@@ -151,6 +165,9 @@ class _IndexState extends State<Index> {
                   borderRadius: BorderRadius.circular(10)),
             ),
           ),
+        ),
+        SizedBox(
+          width: 10,
         ),
         Container(
           margin: EdgeInsets.only(top: 20),
@@ -238,9 +255,17 @@ class buildAdress extends StatelessWidget {
       color: MyCostant.primary,
       child: Row(
         children: <Widget>[
-          Icon(
-            Icons.location_history,
-            color: MyCostant.light,
+          Container(
+            margin: const EdgeInsets.all(10.0),
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(1000),
+              image: const DecorationImage(
+                image: AssetImage("img/delivery.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           TextButton(
             style: TextButton.styleFrom(
@@ -253,8 +278,14 @@ class buildAdress extends StatelessWidget {
             },
             child: const Text(
               'กรุณาเลือกที่อยู่',
-              style: TextStyle(fontSize: 16, color: Color(0xFF000000)),
+              style: TextStyle(
+                  fontSize: 24, color: Color.fromARGB(255, 255, 255, 255)),
             ),
+          ),
+          Icon(
+            Icons.edit,
+            color: Colors.white,
+            size: 20.0,
           ),
         ],
       ),
