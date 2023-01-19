@@ -178,13 +178,9 @@ class _Select_aState extends State<Select_a> {
           child: ElevatedButton(
             style: MyCostant().myButtonStyle(),
             onPressed: () {
-              //if (formKey.currentState!.validate()) {}
-              if (formKey.currentState!.validate() == false) {
-              } else {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Launcher();
-                }));
-              }
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Launcher();
+              }));
             },
             child: ShowTitle(
               title: 'บันทึก',

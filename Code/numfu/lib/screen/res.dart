@@ -104,33 +104,8 @@ class _ResState extends State<Res> {
             child: Container(
               child: Column(
                 children: [
-                  MaterialButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(5.0),
-                      ),
-                      side: BorderSide(
-                        color: Color.fromARGB(255, 5, 5, 5),
-                        width: 2.0,
-                      ),
-                    ),
-                    minWidth: 2,
-                    onPressed: () {},
-                    color: MyCostant.white,
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.discount,
-                          color: MyCostant.primary,
-                          size: 20.0,
-                        ),
-                        Text(
-                          'ดูโปรโมชันที่สามารถใช้งานได้',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ],
-                    ),
-                  ),
+                  showSheet(),
+                  buildPro(),
                 ],
               ),
             ),
@@ -150,6 +125,36 @@ class _ResState extends State<Res> {
           ),*/
         ],
       )),
+    );
+  }
+
+  MaterialButton buildPro() {
+    return MaterialButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(5.0),
+        ),
+        side: BorderSide(
+          color: Color.fromARGB(255, 5, 5, 5),
+          width: 2.0,
+        ),
+      ),
+      minWidth: 2,
+      onPressed: () {},
+      color: MyCostant.white,
+      child: Row(
+        children: [
+          Icon(
+            Icons.discount,
+            color: MyCostant.primary,
+            size: 20.0,
+          ),
+          Text(
+            'ดูโปรโมชันที่สามารถใช้งานได้',
+            style: TextStyle(fontSize: 18),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -349,6 +354,318 @@ class buildCate extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+  _State createState() => _State();
+}
+
+class _State extends State<HomePage> {
+  int _selectedIndex = 0;
+  final double _sheetSize = 0.4;
+  _onItemTapped(index) {
+    setState(() {
+      DraggableScrollableActuator.reset(context);
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Example'),
+      ),
+      body: SizedBox.expand(
+        child: DraggableScrollableSheet(
+          key: UniqueKey(),
+          initialChildSize: _sheetSize,
+          minChildSize: 0.0,
+          builder: (BuildContext context, ScrollController scrollController) {
+            return Container(
+              color: Colors.blue[100],
+              child: ListView.builder(
+                controller: scrollController,
+                itemCount: 25,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(title: Text('Item $index'));
+                },
+              ),
+            );
+          },
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Business',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            label: 'School',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+class showSheet extends StatefulWidget {
+  const showSheet({Key? key}) : super(key: key);
+
+  @override
+  State<showSheet> createState() => _showSheetState();
+}
+
+class _showSheetState extends State<showSheet> {
+  void displayPersistentBottomSheet() {
+    Scaffold.of(context).showBottomSheet<void>((BuildContext context) {
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Row(
+              children: [
+                Container(
+                  width: 120,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Color(0xffE7E7E7),
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        '  จัดส่งล่วงเวลา',
+                        style: TextStyle(
+                          color: MyCostant.primary,
+                          fontSize: 20,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                    ],
+                  ),
+                ),
+                Text(
+                  '  รับที่ร้าน',
+                  style: TextStyle(
+                    color: MyCostant.dark80,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      'วันนี้',
+                      style: TextStyle(
+                        color: MyCostant.primary,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      '14',
+                      style: TextStyle(
+                        color: MyCostant.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                      width: 100,
+                    ),
+                    Text(
+                      'พฤ.',
+                      style: TextStyle(
+                        color: MyCostant.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      '15',
+                      style: TextStyle(
+                        color: MyCostant.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                      width: 100,
+                    ),
+                    Text(
+                      'ศ.',
+                      style: TextStyle(
+                        color: MyCostant.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      '16',
+                      style: TextStyle(
+                        color: MyCostant.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                      width: 100,
+                    ),
+                    Text(
+                      'ส.',
+                      style: TextStyle(
+                        color: MyCostant.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      '17',
+                      style: TextStyle(
+                        color: MyCostant.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                      width: 40,
+                    ),
+                    Text(
+                      'อ.',
+                      style: TextStyle(
+                        color: MyCostant.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      '18',
+                      style: TextStyle(
+                        color: MyCostant.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  height: 50,
+                ),
+                Text(
+                  'วันนี้ 13:30 - 14:00 น.',
+                  style: TextStyle(
+                    color: MyCostant.black,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  height: 50,
+                ),
+                Text(
+                  'วันนี้ 14:30 - 15:00 น.',
+                  style: TextStyle(
+                    color: MyCostant.black,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  height: 50,
+                ),
+                Text(
+                  'วันนี้ 15:30 - 16:00 น.',
+                  style: TextStyle(
+                    color: MyCostant.black,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  height: 50,
+                ),
+                Text(
+                  'ทันที 40 นาที',
+                  style: TextStyle(
+                    color: MyCostant.black,
+                    fontSize: 20,
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    });
+  }
+
+  Widget build(BuildContext context) {
+    return MaterialButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(5.0),
+        ),
+        side: BorderSide(
+          color: Color.fromARGB(255, 5, 5, 5),
+          width: 2.0,
+        ),
+      ),
+      minWidth: 2,
+      onPressed: displayPersistentBottomSheet,
+      color: MyCostant.white,
+      child: Row(
+        children: [
+          Icon(
+            Icons.timelapse,
+            color: MyCostant.primary,
+            size: 20.0,
+          ),
+          Text(
+            ' การจัดส่งล่วงเวลา',
+            style: TextStyle(fontSize: 18),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -27,6 +27,8 @@ class MyCostant {
   static Color red = Color(0xffFF3326);
   static Color pri = Color(0xffC55200);
   static Color star = Color(0xffFFD233);
+  static Color dark80 = Color(0xff666666);
+
   // Style
   TextStyle h1Style() => TextStyle(
         fontSize: 36,
