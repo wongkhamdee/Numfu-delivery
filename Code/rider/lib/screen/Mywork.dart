@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rider/screen/accept_order1.dart';
 import '../utility/my_constant.dart';
 
 class Mywork extends StatefulWidget {
@@ -79,7 +80,12 @@ class _MyworkState extends State<Mywork> {
                 TextButton(
                     child: const Text('รับงานนี้',
                         style: TextStyle(color: Color(0xffffffff))),
-                    onPressed: () {/* ... */},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return ACPT_order1();
+                      }));
+                    },
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Color(0xffFF8126)),
