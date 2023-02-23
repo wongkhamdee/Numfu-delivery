@@ -58,7 +58,7 @@ class _LoginpageState extends State<Loginpage> {
         } else {
           SnackBar snackBar = const SnackBar(
             content: Text(
-              "No record found, You are not an dmin.",
+              "No record found, You are not an admin.",
               style: TextStyle(fontSize: 36, color: Colors.white),
             ),
             backgroundColor: Colors.pinkAccent,
