@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class MyCostant {
   // general
   static String appName = 'Numfu';
-
+  static String domain = 'https://c660-223-24-153-118.ap.ngrok.io';
   // Route
   static String routelogin = '/login';
   static String routeregister = '/register';

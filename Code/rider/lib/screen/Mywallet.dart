@@ -11,6 +11,7 @@ class Mywallet extends StatefulWidget {
 class _MywalletState extends State<Mywallet> {
   @override
   Widget build(BuildContext context) {
+    double size = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -29,6 +30,7 @@ class _MywalletState extends State<Mywallet> {
             child: ListView(
               children: [
                 buildWork(),
+                buildNext(context, size),
               ],
             ),
           )),
@@ -104,4 +106,37 @@ class buildMywallet extends StatelessWidget {
       ),
     );
   }
+}
+
+GestureDetector buildNext(BuildContext context, double size) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return Mywallet();
+      }));
+    },
+    child: Container(
+      margin: EdgeInsets.only(top: 50),
+      width: size * 0.9,
+      height: 40,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        color: MyCostant.primary,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 2,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Center(
+        child: Text(
+          "ถอนเงิน",
+          style: MyCostant().h5button(),
+        ),
+      ),
+    ),
+  );
 }

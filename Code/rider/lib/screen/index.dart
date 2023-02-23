@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rider/screen/Launcher.dart';
 import 'package:rider/screen/Mywallet.dart';
+import 'package:rider/screen/Mywork.dart';
 import 'package:rider/screen/News.dart';
 import 'package:rider/screen/profile.dart';
 
@@ -120,6 +122,7 @@ class buildHello extends StatelessWidget {
             ),
           ),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'สวัสดี!',
@@ -206,7 +209,7 @@ GestureDetector buildNext(BuildContext context, double size) {
   return GestureDetector(
     onTap: () {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return Mywallet();
+        return Launcher();
       }));
     },
     child: Container(

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:numfu/screen/Favorite.dart';
@@ -12,6 +15,7 @@ import 'package:numfu/screen/select_address.dart';
 import 'package:numfu/screen/wallet.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Index extends StatefulWidget {
   static const routeName = '/';
@@ -25,6 +29,27 @@ class Index extends StatefulWidget {
 }
 
 class _IndexState extends State<Index> {
+  @override
+  void initState() {
+    super.initState();
+    readApiShop();
+  }
+
+  Future<Null> readApiShop() async {
+    String apiGetproductWhereIDBuyyer =
+        '${MyCostant.domain}/api_numfu/getProductWhereIdSeller.php';
+    await Dio().get(apiGetproductWhereIDBuyyer).then((value) {
+      // print('value ==> $value');
+      var result = json.decode(value.data);
+      // print('result = $result');
+      for (var item in result) {
+        print('item ==> $item');
+        // UserModel model = UserModel.fromMap(item);
+        // print('name ==> ${model.name}');
+      }
+    });
+  }
+
   /*final user = FirebaseAuth.instance.currentUser!;*/
   var res1 = new Card(
     child: Column(children: <Widget>[

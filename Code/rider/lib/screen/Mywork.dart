@@ -20,10 +20,7 @@ class _MyworkState extends State<Mywork> {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('f'),
-                    Text('f'),
-                  ],
+                  children: [],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,6 +55,7 @@ class _MyworkState extends State<Mywork> {
                                         color: Color(0xffFF3326)))))),
                   ],
                 ),
+                buildWork(),
                 buildWork(),
               ],
             ),
