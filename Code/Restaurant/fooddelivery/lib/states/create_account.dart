@@ -54,7 +54,9 @@ class _CreateAccountState extends State<CreateAccount> {
           height: 48,
           child: ElevatedButton(
             style: MyConstant().myButtonStyle(),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, MyConstant.routeCreateAccount2);
+            },
             child: Text(
               'ต่อไป',
               style: TextStyle(fontSize: 20),
