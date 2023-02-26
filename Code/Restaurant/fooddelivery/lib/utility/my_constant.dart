@@ -41,7 +41,7 @@ class MyConstant {
         fontWeight: FontWeight.bold,
       );
   TextStyle h5Style() => TextStyle(
-        fontSize: 18,
+        fontSize: 25,
         color: Colors.black,
         fontWeight: FontWeight.normal,
       );
