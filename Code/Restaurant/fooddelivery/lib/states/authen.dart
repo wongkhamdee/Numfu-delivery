@@ -42,14 +42,20 @@ class _AuthenState extends State<Authen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ShowTitles(
-          title: 'คุณเป็นสมาชิกเเล้วหรือไม่?',
-          textStyle: MyConstant().h3Style(),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 40),
+          child: ShowTitles(
+            title: 'คุณเป็นสมาชิกเเล้วหรือไม่?',
+            textStyle: MyConstant().h3Style(),
+          ),
         ),
         TextButton(
           onPressed: () =>
               Navigator.pushNamed(context, MyConstant.routeCreateAccount),
-          child: Text('สมัครสมาชิก'),
+          child: Text(
+            'สมัครสมาชิก',
+            style: TextStyle(fontFamily: "MN MINI", fontSize: 16),
+          ),
         ),
       ],
     );
@@ -60,7 +66,7 @@ class _AuthenState extends State<Authen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.symmetric(vertical: 20),
+          margin: EdgeInsets.only(top: 40),
           width: size * 0.9,
           height: 48,
           child: ElevatedButton(
@@ -68,7 +74,10 @@ class _AuthenState extends State<Authen> {
             onPressed: () {},
             child: Text(
               'เข้าสู่ระบบ',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: "MN MINI",
+              ),
             ),
           ),
         ),
@@ -81,14 +90,22 @@ class _AuthenState extends State<Authen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: 40),
           width: size * 0.9,
           child: TextFormField(
             decoration: InputDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              labelStyle: TextStyle(color: Colors.black),
+              labelStyle: TextStyle(
+                color: Colors.black,
+                fontFamily: "MN MINI",
+                fontSize: 19,
+              ),
               labelText: 'อีเมล',
               hintText: 'กรุณากรอกอีเมลของคุณ',
+              hintStyle: TextStyle(
+                fontFamily: "MN MINI",
+                fontSize: 16,
+              ),
               contentPadding: EdgeInsets.only(left: 20),
               suffixIcon: Icon(
                 Icons.mail_outline,
@@ -114,7 +131,7 @@ class _AuthenState extends State<Authen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 25),
+          margin: EdgeInsets.only(top: 40),
           width: size * 0.9,
           child: TextFormField(
             obscureText: statusRedEye,
@@ -136,9 +153,17 @@ class _AuthenState extends State<Authen> {
                       ),
               ),
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              labelStyle: TextStyle(color: Colors.black),
+              labelStyle: TextStyle(
+                color: Colors.black,
+                fontFamily: "MN MINI",
+                fontSize: 19,
+              ),
               labelText: 'รหัสผ่าน',
               hintText: 'กรุณากรอกรหัสผ่านของคุณ',
+              hintStyle: TextStyle(
+                fontFamily: "MN MINI",
+                fontSize: 16,
+              ),
               contentPadding: EdgeInsets.only(left: 20),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.black),
@@ -160,7 +185,7 @@ class _AuthenState extends State<Authen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-            margin: EdgeInsets.only(top: 40),
+            margin: EdgeInsets.only(top: 70),
             child: ShowTitles(
                 title: 'ยินดีต้อนรับ', textStyle: MyConstant().h4Style())),
       ],

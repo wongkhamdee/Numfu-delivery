@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fooddelivery/utility/my_dialog.dart';
 import 'package:fooddelivery/widgets/show_titles.dart';
 import 'package:fooddelivery/utility/my_constant.dart';
 import 'package:fooddelivery/widgets/show_images.dart';
+import 'package:geolocator/geolocator.dart';
 
 class CreateBussinessDetail extends StatefulWidget {
   const CreateBussinessDetail({super.key});
@@ -12,8 +14,49 @@ class CreateBussinessDetail extends StatefulWidget {
 }
 
 class _CreateBussinessDetailState extends State<CreateBussinessDetail> {
-  final dropValue = ['ก๋วยเตี๋ยว', 'เบอร์เกอ', 'ข้าวต้ม'];
-  String? selectValue = "";
+  //TextEditingController controller = new TextEditingController();
+  //List<String> type = ["a", "b", "c", "d"];
+  //bool displaytype = false;
+  @override
+  void initState() {
+    super.initState();
+    CheckPermission();
+  }
+
+  Future<Null> CheckPermission() async {
+    bool locationService;
+    LocationPermission locationPermission;
+
+    locationService = await Geolocator.isLocationServiceEnabled();
+    if (locationService) {
+      print("Service Location Open");
+
+      locationPermission = await Geolocator.checkPermission();
+      if (locationPermission == LocationPermission.denied) {
+        locationPermission = await Geolocator.requestPermission();
+        if (locationPermission == LocationPermission.deniedForever) {
+          MyDialog().alertLocationService(
+              context, 'ไม่อนุญาตให้เเชร์ Location', 'โปรเเชร์ Location');
+        } else {
+          //findLatLng()
+        }
+      } else {
+        if (locationPermission == LocationPermission.deniedForever) {
+          MyDialog().alertLocationService(
+              context, 'ไม่อนุญาตให้เเชร์ Location', 'โปรเเชร์ Location');
+        } else {
+          //findLatLng()
+        }
+      }
+    } else {
+      print("Service Location Close");
+      MyDialog().alertLocationService(
+          context,
+          'คุณยังไม่ได้ทำการเปิด Location Service',
+          'กรุณาเปิด Location Service');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
@@ -25,7 +68,8 @@ class _CreateBussinessDetailState extends State<CreateBussinessDetail> {
         elevation: 0,
         title: Text(
           'รายละเอียดธุรกิจ',
-          style: TextStyle(color: Colors.black, fontSize: 25),
+          style: TextStyle(
+              color: Colors.black, fontSize: 36, fontFamily: "MN MINI"),
         ),
         backgroundColor: Colors.white,
       ),
@@ -35,11 +79,73 @@ class _CreateBussinessDetailState extends State<CreateBussinessDetail> {
           children: [
             BuildNameStore(size),
             BuildNextPage(size),
+            //BuildType(size),
           ],
         ),
       ),
     );
   }
+
+  // Row BuildType(double size) {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: [
+  //       Container(
+  //         margin: EdgeInsets.only(top: 60),
+  //         width: size * 0.9,
+  //         child: TextFormField(
+  //           controller: controller,
+  //           decoration: InputDecoration(
+  //             floatingLabelBehavior: FloatingLabelBehavior.always,
+  //             contentPadding: EdgeInsets.only(left: 20),
+  //             suffixIcon: GestureDetector(
+  //               onTap: () {
+  //                 setState(() {
+  //                   displaytype = !displaytype;
+  //                 });
+  //               },
+  //               child: Icon(
+  //                 Icons.list,
+  //                 color: Colors.black,
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //       displaytype
+  //           ? Container(
+  //               width: size * 0.9,
+  //               decoration: BoxDecoration(
+  //                 borderRadius: BorderRadius.circular(30),
+  //                 color: Colors.black,
+  //                 boxShadow: [
+  //                   BoxShadow(
+  //                     color: Colors.grey.withOpacity(0.3),
+  //                     spreadRadius: 1,
+  //                     blurRadius: 3,
+  //                     offset: Offset(0, 1),
+  //                   ),
+  //                 ],
+  //               ),
+  //               child: ListView.builder(
+  //                   itemCount: type.length,
+  //                   itemBuilder: ((context, index) {
+  //                     return GestureDetector(
+  //                       onTap: () {
+  //                         setState(() {
+  //                           controller.text = (index + 1).toString();
+  //                         });
+  //                       },
+  //                       child: ListTile(
+  //                         title: Text(type[index]),
+  //                       ),
+  //                     );
+  //                   })),
+  //             )
+  //           : SizedBox()
+  //     ],
+  //   );
+  // }
 
   Row BuildNextPage(double size) {
     return Row(
@@ -55,8 +161,11 @@ class _CreateBussinessDetailState extends State<CreateBussinessDetail> {
               // Navigator.pushNamed(context, MyConstant.routeCreateAccount2);
             },
             child: Text(
-              'ต่อไป',
-              style: TextStyle(fontSize: 20),
+              'เสร็จสิ้น',
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: "MN MINI",
+              ),
             ),
           ),
         ),
@@ -69,14 +178,22 @@ class _CreateBussinessDetailState extends State<CreateBussinessDetail> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 25),
+          margin: EdgeInsets.only(top: 60),
           width: size * 0.9,
           child: TextFormField(
             maxLength: 255,
             maxLengthEnforcement: MaxLengthEnforcement.enforced,
             decoration: InputDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              labelStyle: TextStyle(color: Colors.black),
+              labelStyle: TextStyle(
+                color: Colors.black,
+                fontFamily: "MN MINI",
+                fontSize: 19,
+              ),
+              hintStyle: TextStyle(
+                fontFamily: "MN MINI",
+                fontSize: 16,
+              ),
               labelText: 'ชื่อร้าน',
               hintText: 'กรุณากรอกชื่อร้านของคุณ',
               contentPadding: EdgeInsets.only(left: 20),

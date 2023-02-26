@@ -12,7 +12,7 @@ class MyConstant {
   static String routeCreateAccount2 = '/createAccount2';
 
   //Image
-  static String logo = 'images/image1.png';
+  static String logo = 'images/logot2.png';
 
   //color
   static Color primary = Color(0xffFF8126);
@@ -31,19 +31,21 @@ class MyConstant {
         fontWeight: FontWeight.w700,
       );
   TextStyle h3Style() => TextStyle(
-        fontSize: 14,
-        color: dark,
-        fontWeight: FontWeight.normal,
-      );
+      fontSize: 16,
+      color: dark,
+      fontWeight: FontWeight.normal,
+      fontFamily: "MN MINI");
   TextStyle h4Style() => TextStyle(
-        fontSize: 20,
+        fontSize: 25,
         color: Colors.black,
         fontWeight: FontWeight.bold,
+        fontFamily: "MN MINI Bold",
       );
   TextStyle h5Style() => TextStyle(
         fontSize: 25,
         color: Colors.black,
         fontWeight: FontWeight.normal,
+        fontFamily: "MN MINI",
       );
 
   ButtonStyle myButtonStyle() => ElevatedButton.styleFrom(

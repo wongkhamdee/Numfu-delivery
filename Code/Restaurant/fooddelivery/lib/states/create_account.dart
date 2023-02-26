@@ -24,7 +24,8 @@ class _CreateAccountState extends State<CreateAccount> {
         elevation: 0,
         title: Text(
           'สมัครสมาชิก',
-          style: TextStyle(color: Colors.black, fontSize: 25),
+          style: TextStyle(
+              color: Colors.black, fontSize: 36, fontFamily: "MN MINI"),
         ),
         backgroundColor: Colors.white,
       ),
@@ -59,7 +60,10 @@ class _CreateAccountState extends State<CreateAccount> {
             },
             child: Text(
               'ต่อไป',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: "MN MINI",
+              ),
             ),
           ),
         ),
@@ -72,7 +76,7 @@ class _CreateAccountState extends State<CreateAccount> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 10),
+          margin: EdgeInsets.only(top: 20),
           width: size * 0.9,
           child: TextFormField(
             maxLength: 255,
@@ -96,7 +100,15 @@ class _CreateAccountState extends State<CreateAccount> {
                       ),
               ),
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              labelStyle: TextStyle(color: Colors.black),
+              labelStyle: TextStyle(
+                color: Colors.black,
+                fontFamily: "MN MINI",
+                fontSize: 19,
+              ),
+              hintStyle: TextStyle(
+                fontFamily: "MN MINI",
+                fontSize: 16,
+              ),
               labelText: 'รหัสผ่าน',
               hintText: 'กรุณากรอกรหัสผ่านของคุณ',
               contentPadding: EdgeInsets.only(left: 20),
@@ -120,14 +132,22 @@ class _CreateAccountState extends State<CreateAccount> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 10),
+          margin: EdgeInsets.only(top: 20),
           width: size * 0.9,
           child: TextFormField(
             maxLength: 255,
             maxLengthEnforcement: MaxLengthEnforcement.enforced,
             decoration: InputDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              labelStyle: TextStyle(color: Colors.black),
+              labelStyle: TextStyle(
+                color: Colors.black,
+                fontFamily: "MN MINI",
+                fontSize: 19,
+              ),
+              hintStyle: TextStyle(
+                fontFamily: "MN MINI",
+                fontSize: 16,
+              ),
               labelText: 'อีเมล',
               hintText: 'กรุณากรอกอีเมลของคุณ',
               contentPadding: EdgeInsets.only(left: 20),
@@ -155,7 +175,7 @@ class _CreateAccountState extends State<CreateAccount> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 25),
+          margin: EdgeInsets.only(top: 60),
           width: size * 0.9,
           child: TextFormField(
             maxLength: 10,
@@ -166,7 +186,15 @@ class _CreateAccountState extends State<CreateAccount> {
             ),
             decoration: InputDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              labelStyle: TextStyle(color: Colors.black),
+              labelStyle: TextStyle(
+                color: Colors.black,
+                fontFamily: "MN MINI",
+                fontSize: 19,
+              ),
+              hintStyle: TextStyle(
+                fontFamily: "MN MINI",
+                fontSize: 16,
+              ),
               labelText: 'เบอร์โทรศัพท์',
               hintText: 'กรุณากรอกเบอโทรศัพท์ของคุณ',
               contentPadding: EdgeInsets.only(left: 20),
@@ -194,14 +222,22 @@ class _CreateAccountState extends State<CreateAccount> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 10),
+          margin: EdgeInsets.only(top: 20),
           width: size * 0.9,
           child: TextFormField(
             maxLength: 255,
             maxLengthEnforcement: MaxLengthEnforcement.enforced,
             decoration: InputDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              labelStyle: TextStyle(color: Colors.black),
+              labelStyle: TextStyle(
+                color: Colors.black,
+                fontFamily: "MN MINI",
+                fontSize: 19,
+              ),
+              hintStyle: TextStyle(
+                fontFamily: "MN MINI",
+                fontSize: 16,
+              ),
               labelText: 'ชื่อ',
               hintText: 'กรุณากรอกชื่อของคุณ',
               contentPadding: EdgeInsets.only(left: 20),
@@ -229,14 +265,22 @@ class _CreateAccountState extends State<CreateAccount> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 10),
+          margin: EdgeInsets.only(top: 20),
           width: size * 0.9,
           child: TextFormField(
             maxLength: 255,
             maxLengthEnforcement: MaxLengthEnforcement.enforced,
             decoration: InputDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              labelStyle: TextStyle(color: Colors.black),
+              labelStyle: TextStyle(
+                color: Colors.black,
+                fontFamily: "MN MINI",
+                fontSize: 19,
+              ),
+              hintStyle: TextStyle(
+                fontFamily: "MN MINI",
+                fontSize: 16,
+              ),
               labelText: 'นามสกุล',
               hintText: 'กรุณากรอกนามสกุลของคุณ',
               contentPadding: EdgeInsets.only(left: 20),
