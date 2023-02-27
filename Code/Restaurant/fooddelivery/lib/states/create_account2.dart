@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fooddelivery/utility/my_dialog.dart';
+import 'package:fooddelivery/widgets/show_progress.dart';
 import 'package:fooddelivery/widgets/show_titles.dart';
 import 'package:fooddelivery/utility/my_constant.dart';
 import 'package:fooddelivery/widgets/show_images.dart';
@@ -14,6 +15,7 @@ class CreateBussinessDetail extends StatefulWidget {
 }
 
 class _CreateBussinessDetailState extends State<CreateBussinessDetail> {
+  double? lat, lng;
   //TextEditingController controller = new TextEditingController();
   //List<String> type = ["a", "b", "c", "d"];
   //bool displaytype = false;
@@ -38,14 +40,14 @@ class _CreateBussinessDetailState extends State<CreateBussinessDetail> {
           MyDialog().alertLocationService(
               context, 'ไม่อนุญาตให้เเชร์ Location', 'โปรเเชร์ Location');
         } else {
-          //findLatLng()
+          findLatLng();
         }
       } else {
         if (locationPermission == LocationPermission.deniedForever) {
           MyDialog().alertLocationService(
               context, 'ไม่อนุญาตให้เเชร์ Location', 'โปรเเชร์ Location');
         } else {
-          //findLatLng()
+          findLatLng();
         }
       }
     } else {
@@ -54,6 +56,26 @@ class _CreateBussinessDetailState extends State<CreateBussinessDetail> {
           context,
           'คุณยังไม่ได้ทำการเปิด Location Service',
           'กรุณาเปิด Location Service');
+    }
+  }
+
+  Future<Null> findLatLng() async {
+    print('findLatLan ==> Work');
+    Position? position = await findPosition();
+    setState(() {
+      lat = position!.latitude;
+      lng = position.longitude;
+      print('lat = $lat, lng = $lng');
+    });
+  }
+
+  Future<Position?> findPosition() async {
+    Position position;
+    try {
+      position = await Geolocator.getCurrentPosition();
+      return position;
+    } catch (e) {
+      return null;
     }
   }
 
@@ -79,9 +101,29 @@ class _CreateBussinessDetailState extends State<CreateBussinessDetail> {
           children: [
             BuildNameStore(size),
             BuildNextPage(size),
+            BuildTitle('เเสดงพิกัดปัจจุบัน'),
+            BuildMap(),
+
             //BuildType(size),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget BuildMap() => Container(
+        //color: Colors.grey,
+        width: double.infinity,
+        height: 200,
+        child: lat == null ? ShowProgress() : Text('lat = $lat, lng = $lng'),
+      );
+
+  ShowTitles BuildTitle(String title) {
+    return ShowTitles(
+      title: title,
+      textStyle: TextStyle(
+        color: Colors.black,
+        fontFamily: "MN MINI Bold",
       ),
     );
   }
