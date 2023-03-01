@@ -24,7 +24,6 @@ class _AuthenState extends State<Authen> {
           child: ListView(
             children: [
               BuildImages(size),
-              BuildAppName(),
               BuildWelcome(),
               BuildPlease(),
               BuildUsers(size),
@@ -206,27 +205,13 @@ class _AuthenState extends State<Authen> {
     );
   }
 
-  Row BuildAppName() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          margin: EdgeInsets.only(top: 20),
-          child: ShowTitles(
-            title: MyConstant.appName,
-            textStyle: MyConstant().h1Style(),
-          ),
-        ),
-      ],
-    );
-  }
-
   Row BuildImages(double size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          width: size * 0.3,
+          margin: EdgeInsets.only(top: 20),
+          width: size * 0.5,
           child: ShowImages(path: MyConstant.logo),
         ),
       ],

@@ -12,7 +12,7 @@ class MyConstant {
   static String routeCreateAccount2 = '/createAccount2';
 
   //Image
-  static String logo = 'images/logot2.png';
+  static String logo = 'images/logo.png';
 
   //color
   static Color primary = Color(0xffFF8126);

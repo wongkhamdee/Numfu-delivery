@@ -6,6 +6,7 @@ import 'package:fooddelivery/widgets/show_titles.dart';
 import 'package:fooddelivery/utility/my_constant.dart';
 import 'package:fooddelivery/widgets/show_images.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CreateBussinessDetail extends StatefulWidget {
   const CreateBussinessDetail({super.key});
@@ -100,9 +101,9 @@ class _CreateBussinessDetailState extends State<CreateBussinessDetail> {
         child: ListView(
           children: [
             BuildNameStore(size),
-            BuildNextPage(size),
             BuildTitle('เเสดงพิกัดปัจจุบัน'),
             BuildMap(),
+            BuildNextPage(size),
 
             //BuildType(size),
           ],
@@ -111,11 +112,28 @@ class _CreateBussinessDetailState extends State<CreateBussinessDetail> {
     );
   }
 
+  Set<Marker> setMarker() => <Marker>[
+        Marker(
+          markerId: MarkerId('id'),
+          position: LatLng(lat!, lng!),
+          infoWindow: InfoWindow(title: 'ตำเเหน่งปัจจุบัน', snippet: 'Lat = $lat, lng = $lng'),
+        ),
+      ].toSet();
+
   Widget BuildMap() => Container(
         //color: Colors.grey,
         width: double.infinity,
         height: 200,
-        child: lat == null ? ShowProgress() : Text('lat = $lat, lng = $lng'),
+        child: lat == null
+            ? ShowProgress()
+            : GoogleMap(
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(lat!, lng!),
+                  zoom: 16,
+                ),
+                onMapCreated: (controller) {},
+                markers: setMarker(),
+              ),
       );
 
   ShowTitles BuildTitle(String title) {

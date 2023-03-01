@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-#Mon Feb 27 17:13:08 ICT 2023
-=======
-#Fri Feb 24 13:25:58 ICT 2023
->>>>>>> 108d4d0ff268e85e38e69c6e07d42f98f92a3a24
+#Wed Mar 01 22:25:09 ICT 2023
 base.0=C\:\\Users\\ThitiBamrungna\\Documents\\GitHub\\Numfu-delivery\\Code\\Restaurant\\fooddelivery\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
