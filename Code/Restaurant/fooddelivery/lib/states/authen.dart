@@ -21,16 +21,18 @@ class _AuthenState extends State<Authen> {
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
           behavior: HitTestBehavior.opaque,
-          child: ListView(
-            children: [
-              BuildImages(size),
-              BuildWelcome(),
-              BuildPlease(),
-              BuildUsers(size),
-              BuildPassword(size),
-              BuildLogin(size),
-              BuildCreateAccount(),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                BuildImages(size),
+                BuildWelcome(),
+                BuildPlease(),
+                BuildUsers(size),
+                BuildPassword(size),
+                BuildLogin(size),
+                BuildCreateAccount(),
+              ],
+            ),
           ),
         ),
       ),

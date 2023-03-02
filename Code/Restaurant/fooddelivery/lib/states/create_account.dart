@@ -12,6 +12,7 @@ class CreateAccount extends StatefulWidget {
 }
 
 class _CreateAccountState extends State<CreateAccount> {
+  final formKey = GlobalKey<FormState>();
   bool statusRedEye = true;
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,9 @@ class _CreateAccountState extends State<CreateAccount> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        actions: [
+          BuildCreate(),
+        ],
         iconTheme: IconThemeData(color: Colors.black),
         centerTitle: true,
         elevation: 0,
@@ -31,17 +35,31 @@ class _CreateAccountState extends State<CreateAccount> {
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: ListView(
-          children: [
-            BuildPhone(size),
-            BuildName(size),
-            BuildLastName(size),
-            BuildEmail(size),
-            BuildPassword(size),
-            BuildNextPage(size),
-          ],
+        child: Form(
+          key: formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                BuildPhone(size),
+                BuildName(size),
+                BuildLastName(size),
+                BuildEmail(size),
+                BuildPassword(size),
+                BuildNextPage(size),
+              ],
+            ),
+          ),
         ),
       ),
+    );
+  }
+
+  IconButton BuildCreate() {
+    return IconButton(
+      onPressed: () {
+        if (formKey.currentState!.validate()) {}
+      },
+      icon: Icon(Icons.cloud_upload),
     );
   }
 
@@ -79,6 +97,11 @@ class _CreateAccountState extends State<CreateAccount> {
           margin: EdgeInsets.only(top: 20),
           width: size * 0.9,
           child: TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'กรุณากรอกกรอกรหัสผ่านของท่าน';
+              } else {}
+            },
             maxLength: 255,
             maxLengthEnforcement: MaxLengthEnforcement.enforced,
             obscureText: statusRedEye,
@@ -135,6 +158,11 @@ class _CreateAccountState extends State<CreateAccount> {
           margin: EdgeInsets.only(top: 20),
           width: size * 0.9,
           child: TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'กรุณากรอกอีเมลของท่าน';
+              } else {}
+            },
             maxLength: 255,
             maxLengthEnforcement: MaxLengthEnforcement.enforced,
             decoration: InputDecoration(
@@ -178,12 +206,18 @@ class _CreateAccountState extends State<CreateAccount> {
           margin: EdgeInsets.only(top: 60),
           width: size * 0.9,
           child: TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'กรุณากรอกเบอร์โทรศัพท์ของท่าน';
+              } else {}
+            },
             maxLength: 10,
             maxLengthEnforcement: MaxLengthEnforcement.enforced,
-            keyboardType: TextInputType.numberWithOptions(
-              decimal: true,
-              signed: true,
-            ),
+            // keyboardType: TextInputType.numberWithOptions(
+            //   decimal: true,
+            //   signed: true,
+            // ),
+            keyboardType: TextInputType.phone,
             decoration: InputDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.always,
               labelStyle: TextStyle(
@@ -225,6 +259,11 @@ class _CreateAccountState extends State<CreateAccount> {
           margin: EdgeInsets.only(top: 20),
           width: size * 0.9,
           child: TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'กรุณากรอกชื่อจริงของท่าน';
+              } else {}
+            },
             maxLength: 255,
             maxLengthEnforcement: MaxLengthEnforcement.enforced,
             decoration: InputDecoration(
@@ -268,6 +307,11 @@ class _CreateAccountState extends State<CreateAccount> {
           margin: EdgeInsets.only(top: 20),
           width: size * 0.9,
           child: TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'กรุณากรอกนามสกุลของท่าน';
+              } else {}
+            },
             maxLength: 255,
             maxLengthEnforcement: MaxLengthEnforcement.enforced,
             decoration: InputDecoration(

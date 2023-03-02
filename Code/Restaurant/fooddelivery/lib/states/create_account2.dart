@@ -20,6 +20,7 @@ class _CreateBussinessDetailState extends State<CreateBussinessDetail> {
   //TextEditingController controller = new TextEditingController();
   //List<String> type = ["a", "b", "c", "d"];
   //bool displaytype = false;
+  final formKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
@@ -86,6 +87,9 @@ class _CreateBussinessDetailState extends State<CreateBussinessDetail> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        actions: [
+          BuildCreate(),
+        ],
         iconTheme: IconThemeData(color: Colors.black),
         centerTitle: true,
         elevation: 0,
@@ -98,29 +102,44 @@ class _CreateBussinessDetailState extends State<CreateBussinessDetail> {
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: ListView(
-          children: [
-            BuildNameStore(size),
-            BuildTitle('เเสดงพิกัดปัจจุบัน'),
-            BuildMap(),
-            BuildNextPage(size),
-
-            //BuildType(size),
-          ],
+        child: Form(
+          key: formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                BuildNameStore(size),
+                BuildTitle('เเสดงพิกัดปัจจุบัน'),
+                BuildMap(size),
+                BuildNextPage(size),
+          
+                //BuildType(size),
+              ],
+            ),
+          ),
         ),
       ),
     );
+  }
+
+  IconButton BuildCreate() {
+    return IconButton(
+          onPressed: () {
+            if (formKey.currentState!.validate()) {}
+          },
+          icon: Icon(Icons.cloud_upload),
+        );
   }
 
   Set<Marker> setMarker() => <Marker>[
         Marker(
           markerId: MarkerId('id'),
           position: LatLng(lat!, lng!),
-          infoWindow: InfoWindow(title: 'ตำเเหน่งปัจจุบัน', snippet: 'Lat = $lat, lng = $lng'),
+          infoWindow: InfoWindow(
+              title: 'ตำเเหน่งปัจจุบัน', snippet: 'Lat = $lat, lng = $lng'),
         ),
       ].toSet();
 
-  Widget BuildMap() => Container(
+  Widget BuildMap(double size) => Container(
         //color: Colors.grey,
         width: double.infinity,
         height: 200,
@@ -136,12 +155,16 @@ class _CreateBussinessDetailState extends State<CreateBussinessDetail> {
               ),
       );
 
-  ShowTitles BuildTitle(String title) {
-    return ShowTitles(
-      title: title,
-      textStyle: TextStyle(
-        color: Colors.black,
-        fontFamily: "MN MINI Bold",
+  Container BuildTitle(String title) {
+    return Container(
+      margin: EdgeInsets.only(left: 20, top: 10, bottom: 10),
+      child: ShowTitles(
+        title: title,
+        textStyle: TextStyle(
+          color: Colors.black,
+          fontFamily: "MN MINI Bold",
+          fontSize: 16,
+        ),
       ),
     );
   }
@@ -241,6 +264,11 @@ class _CreateBussinessDetailState extends State<CreateBussinessDetail> {
           margin: EdgeInsets.only(top: 60),
           width: size * 0.9,
           child: TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'กรุณากรอกชื่อร้านค้าของท่าน';
+              } else {}
+            },
             maxLength: 255,
             maxLengthEnforcement: MaxLengthEnforcement.enforced,
             decoration: InputDecoration(
