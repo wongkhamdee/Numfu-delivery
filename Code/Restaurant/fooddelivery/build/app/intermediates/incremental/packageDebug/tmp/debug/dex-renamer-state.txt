@@ -1,4 +1,4 @@
-#Thu Mar 02 23:18:09 ICT 2023
-base.0=C\:\\Users\\ThitiBamrungna\\Documents\\GitHub\\Numfu-delivery\\Code\\Restaurant\\fooddelivery\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Sun Mar 05 17:13:10 ICT 2023
+base.0=/Users/thitibamrungna/Documents/GitHub/Numfu-delivery/Code/Restaurant/fooddelivery/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
