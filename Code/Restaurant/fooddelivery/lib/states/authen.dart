@@ -43,7 +43,7 @@ class _AuthenState extends State<Authen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ShowTitles(
-          title: 'คุณเป็นสมาชิกเเล้วหรือไม่?',
+          title: 'คุณเป็นสมา5656565ชิกเเล้วหรือไม่?',
           textStyle: MyConstant().h3Style(),
         ),
         TextButton(
