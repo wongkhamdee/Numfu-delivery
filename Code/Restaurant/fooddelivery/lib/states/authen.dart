@@ -46,7 +46,7 @@ class _AuthenState extends State<Authen> {
         Container(
           margin: EdgeInsets.symmetric(vertical: 40),
           child: ShowTitles(
-            title: 'คุณเป็นสมาชิกเเล้วหรือไม่?',
+            title: 'คุณเป็นสมาชิกเเล้วหรือไม่?gggggggggggg',
             textStyle: MyConstant().h3Style(),
           ),
         ),
