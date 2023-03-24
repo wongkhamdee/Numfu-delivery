@@ -24,7 +24,7 @@ class _LauncherState extends State<Launcher> {
     const Index(),
     const Wallet(),
     const History(),
-    const Profile(),
+    Test(),
   ];
   final List<BottomNavigationBarItem> _menuBar = <BottomNavigationBarItem>[
     BottomNavigationBarItem(

@@ -1,82 +1,91 @@
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
+Future<List<Map<String, dynamic>>> fetchRestaurants() async {
+  final response = await http.get(Uri.parse(
+      'https://ac47-223-24-153-125.ap.ngrok.io/api_numfu/Apiget.php'));
+  if (response.statusCode == 200) {
+    final jsonData = jsonDecode(response.body);
+    return List<Map<String, dynamic>>.from(jsonData);
+  } else {
+    throw Exception('Failed to load restaurants');
+  }
+}
+
 class Test extends StatelessWidget {
-  const Test({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Restaurant List'),
+      ),
+      body: FutureBuilder<List<Map<String, dynamic>>>(
+        future: fetchRestaurants(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final restaurants = snapshot.data!;
+            return ListView.builder(
+              itemCount: restaurants.length,
+              itemBuilder: (context, index) {
+                final restaurant = restaurants[index];
+                return ListTile(
+                  title: Text(restaurant['res_name']),
+                  subtitle: Text(restaurant['owner_name']),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RestaurantDetailScreen(
+                          restaurant: restaurant,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
+    );
+  }
+}
+
+class RestaurantDetailScreen extends StatelessWidget {
+  final Map<String, dynamic> restaurant;
+
+  const RestaurantDetailScreen({Key? key, required this.restaurant})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Awesome Overlay',
-        ),
+        title: Text(restaurant['res_name']),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(35),
+      body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 0,
+            Text(
+              'Restaurant Name: ${restaurant['res_name']}',
+              style: TextStyle(fontSize: 24),
             ),
-            buildHis(),
-            const SizedBox(height: 0),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Container buildHis() {
-    return Container(
-      width: 350,
-      height: 100,
-      decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 255, 255, 255),
-        border: Border(bottom: BorderSide(width: 1)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(0),
-        child: Row(
-          children: [
-            // part picture
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(1000),
-                    image: const DecorationImage(
-                      image: AssetImage("img/4.jpg"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ],
+            SizedBox(height: 16),
+            Text(
+              'Owner Name: ${restaurant['owner_name']}',
+              style: TextStyle(fontSize: 18),
             ),
-            const SizedBox(width: 15),
-
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'ชำระค่าอาหาร   -120 บาท',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                Row(
-                  children: const [
-                    Text("ข้าวมันไก่ป้าแต๋ว เกกี 4",
-                        style: TextStyle(fontSize: 18)),
-                    Text("      21 สิงหา", style: TextStyle(fontSize: 18)),
-                  ],
-                ),
-              ],
-            )
+            SizedBox(height: 16),
+            Text(
+              'Phone Number: ${restaurant['phone_number']}',
+              style: TextStyle(fontSize: 18),
+            ),
           ],
         ),
       ),
