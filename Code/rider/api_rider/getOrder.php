@@ -20,7 +20,7 @@ if (isset($_GET)) {
 
 	
 
-		$result = mysqli_query($link, "SELECT * FROM restaurant WHERE res_id = '$res_id'");
+		$result = mysqli_query($link, "SELECT * FROM order_detail ");
 
 		if ($result) {
 

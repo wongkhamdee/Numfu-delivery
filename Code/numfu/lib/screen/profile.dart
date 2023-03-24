@@ -3,6 +3,7 @@ import 'package:numfu/screen/login.dart';
 import 'package:numfu/utility/my_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:numfu/widgets/show_image.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   static const routeName = '/';
@@ -65,11 +66,12 @@ class _ProfileState extends State<Profile> {
 
   MaterialButton buildSignout() {
     return MaterialButton(
-      onPressed: () {
-        FirebaseAuth.instance.signOut();
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return Login();
-        }));
+      onPressed: () async {
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.clear().then(
+              (value) => Navigator.pushNamedAndRemoveUntil(
+                  context, MyCostant.routelogin, (route) => false),
+            );
       },
       color: MyCostant.red,
       child: Text(

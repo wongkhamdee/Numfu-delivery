@@ -32,7 +32,7 @@ class _IndexState extends State<Index> {
   @override
   void initState() {
     super.initState();
-    readApiShop();
+    //readApiShop();
   }
 
   Future<Null> readApiShop() async {

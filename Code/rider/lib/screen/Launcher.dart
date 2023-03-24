@@ -5,6 +5,7 @@ import 'package:rider/screen/Mywork.dart';
 import 'package:rider/screen/mywallet.dart';
 import 'package:rider/screen/index.dart';
 import 'package:rider/screen/profile.dart';
+import 'package:rider/screen/test.dart';
 import 'package:rider/utility/my_constant.dart';
 
 class Launcher extends StatefulWidget {
